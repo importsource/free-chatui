@@ -12,6 +12,12 @@ A modern, customizable chat widget for N8N workflows with advanced features incl
 
 ![Free Chat UI Demo](images/whole-box-showcase.png)
 
+## 🌐 Official Website
+
+**👉 [Visit the Official Website](https://importsource.github.io/free-chatui/)**
+
+Experience the live demo, explore all features, and see comprehensive examples on our official website.
+
 ## 📊 Project Status
 
 | Status | Description |
