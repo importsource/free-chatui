@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Avatar Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .example-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    
+    .example-section p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info-box strong {
+      color: #1976d2;
+    }
+    
+    .avatar-preview {
+      background: #f7f8fc;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 15px 0;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .avatar-preview-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .avatar-preview-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    .avatar-preview-icon.bot {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .avatar-preview-icon.user {
+      background: #e5e7eb;
+      color: #666;
+    }
+    
+    .avatar-preview-label {
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👤 Avatar Customization Examples</h1>
+
+    <div class="info-box">
+      <strong>Try it now!</strong> Click the chat button in the bottom right corner. Notice the avatars next to each message - bot messages have 🤖 and user messages have 👤. Scroll down to see more avatar customization options!
+    </div>
+
+    <div class="examples">
+      <!-- Example 1 -->
+      <div class="example-section">
+        <h2>1️⃣ Default Emoji Avatars</h2>
+        <p>Simple emoji avatars (recommended)</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">🤖</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">👤</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '🤖',
+  user: '👤',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="example-section">
+        <h2>2️⃣ Custom Emoji Avatars</h2>
+        <p>Use any emoji you like</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">💬</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">😊</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '💬',
+  user: '😊',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="example-section">
+        <h2>3️⃣ Professional Icons</h2>
+        <p>Business-appropriate avatars</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">🏢</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">👔</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '🏢',
+  user: '👔',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 4 -->
+      <div class="example-section">
+        <h2>4️⃣ Image URLs</h2>
+        <p>Use custom image URLs</p>
+        <div class="code-block">avatars: {
+  bot: 'https://yoursite.com/bot-avatar.png',
+  user: 'https://yoursite.com/user-avatar.png',
+  enabled: true
+}</div>
+        <p style="font-size: 13px; color: #999; margin-top: 10px;">
+          Note: Images should be square and will be displayed as circles
+        </p>
+      </div>
+
+      <!-- Example 5 -->
+      <div class="example-section">
+        <h2>5️⃣ Support Theme</h2>
+        <p>Customer support style</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">🎧</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">😊</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '🎧',  // Headset for support
+  user: '😊',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 6 -->
+      <div class="example-section">
+        <h2>6️⃣ AI Assistant</h2>
+        <p>AI/Robot themed</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">🧠</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">👨‍💻</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '🧠',  // Brain for AI
+  user: '👨‍💻',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 7 -->
+      <div class="example-section">
+        <h2>7️⃣ Shopping/E-commerce</h2>
+        <p>Retail themed avatars</p>
+        <div class="avatar-preview">
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon bot">🛍️</div>
+            <span class="avatar-preview-label">Bot</span>
+          </div>
+          <div class="avatar-preview-item">
+            <div class="avatar-preview-icon user">🙋</div>
+            <span class="avatar-preview-label">User</span>
+          </div>
+        </div>
+        <div class="code-block">avatars: {
+  bot: '🛍️',
+  user: '🙋',
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 8 -->
+      <div class="example-section">
+        <h2>8️⃣ Single Letter Initials</h2>
+        <p>Company/user initials</p>
+        <div class="code-block">avatars: {
+  bot: 'AI',   // Or your company initials
+  user: 'U',   // Or user's initial
+  enabled: true
+}</div>
+      </div>
+
+      <!-- Example 9 -->
+      <div class="example-section">
+        <h2>9️⃣ No Avatars</h2>
+        <p>Disable avatars for cleaner look</p>
+        <div class="code-block">avatars: {
+  enabled: false
+}</div>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>✨ Avatar Best Practices</h2>
+      
+      <h3 style="margin-top: 20px; color: #667eea;">Do's:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>✅ Use emoji for simplicity and speed (no image loading)</li>
+        <li>✅ Match avatars to your brand personality</li>
+        <li>✅ Keep images small (under 100KB) if using URLs</li>
+        <li>✅ Use square images (they'll be displayed as circles)</li>
+        <li>✅ Test on different backgrounds</li>
+        <li>✅ Ensure good contrast for readability</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: #667eea;">Don'ts:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>❌ Don't use complex emoji that may not render on all devices</li>
+        <li>❌ Don't use large image files (slows down chat)</li>
+        <li>❌ Don't use rectangular images (they'll be cropped)</li>
+        <li>❌ Don't forget to test on mobile</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Avatar Options</h3>
+      <div style="color: #666; line-height: 2;">
+        <p><strong>Emoji:</strong> Any single emoji character</p>
+        <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">bot: '🤖'  or  '💬'  or  '🎧'  or  '👨‍💼'</div>
+        
+        <p style="margin-top: 15px;"><strong>Image URL:</strong> Full or relative path to image</p>
+        <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">bot: 'https://example.com/avatar.png'</div>
+        
+        <p style="margin-top: 15px;"><strong>Text/Initials:</strong> 1-2 characters</p>
+        <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">bot: 'AI'  or  user: 'U'</div>
+        
+        <p style="margin-top: 15px;"><strong>Disable:</strong> Hide avatars</p>
+        <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">enabled: false</div>
+      </div>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Dynamic Avatars</h3>
+      <p style="color: #666;">Set avatars based on user data:</p>
+      <div class="code-block">// User-specific avatar
+const userAvatar = userProfilePicture || '👤';
+
+window.N8N_CHAT_CONFIG = {
+  chatUrl: 'YOUR_URL',
+  avatars: {
+    bot: '🤖',
+    user: userAvatar,
+    enabled: true
+  }
+};
+
+// Or use initials
+const userName = 'John Doe';
+const initials = userName.split(' ').map(n => n[0]).join('');
+
+window.N8N_CHAT_CONFIG = {
+  avatars: {
+    bot: 'AI',
+    user: initials  // 'JD'
+  }
+};</div>
+    </div>
+  </div>
+
+  <!-- This page uses default emoji avatars -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        'Tell me about avatars',
+        'Show me examples',
+        'How do I customize them?'
+      ],
+      avatars: {
+        bot: '🤖',
+        user: '👤',
+        enabled: true
+      },
+      button: {
+        enabled: true
+      },
+      tip: {
+        enabled: true,
+        text: 'Click to see avatars in action! 💬',
+        delay: 2000
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

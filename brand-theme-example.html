@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Company - Custom Brand Theme Example</title>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 48px;
+      font-weight: 700;
+    }
+    
+    .header p {
+      margin: 15px 0 0 0;
+      font-size: 20px;
+      opacity: 0.9;
+    }
+    
+    .content {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    
+    .info-card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+    }
+    
+    .info-card h2 {
+      color: #667eea;
+      margin-top: 0;
+      font-size: 28px;
+    }
+    
+    .info-card p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 24px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 24px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    
+    .highlight-box h3 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+    }
+    
+    .highlight-box p {
+      margin: 0;
+      opacity: 0.95;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎨 Custom Brand Theme Example</h1>
+    <p>See how to perfectly match the chat widget to your brand</p>
+  </div>
+
+  <div class="content">
+    <div class="info-card">
+      <h2>About This Example</h2>
+      <p>
+        This page demonstrates how to create a fully branded chat experience that matches your website's design.
+        The chat widget uses custom colors, fonts, and styling to blend seamlessly with your brand identity.
+      </p>
+      <p style="margin-top: 15px;">
+        <strong>Click the chat button in the bottom right corner</strong> to see the custom theme in action!
+      </p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>👀 Try the Chat!</h3>
+      <p>Look at the bottom right corner and click the chat button to see the themed chat widget</p>
+    </div>
+
+    <div class="info-card">
+      <h2>📝 Configuration for This Page</h2>
+      <p>Here's the exact configuration used to create this branded chat experience:</p>
+      
+      <div class="code-block">window.N8N_CHAT_CONFIG = {
+  chatUrl: 'https://your-n8n-webhook-url',
+  
+  // Branding
+  title: 'Your Company Support',
+  titleIcon: '🤖',
+  placeholder: 'Ask us anything...',
+  
+  // User Experience
+  welcomeMessage: 'Hello! 👋 Welcome to our company. How can we help you today?',
+  starterPrompts: [
+    'What services do you offer?',
+    'ODM/OEM process information',
+    'Request a quote',
+    'Contact support'
+  ],
+  
+  // Visual Identity
+  avatars: {
+    bot: '🤖',
+    user: '👤',
+    enabled: true
+  },
+  
+  // Brand Theme Colors
+  theme: {
+    primaryColor: '#667eea',        // Your brand color
+    secondaryColor: '#764ba2',      // Accent purple
+    chatBg: '#f7f8fc',              // Light background
+    userMessageColor: '#ffffff',
+    botMessageBg: '#ffffff',
+    botMessageColor: '#333333',
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif'
+  },
+  
+  // Interactive Elements
+  button: {
+    enabled: true,
+    icon: '<span style="font-size: 28px">💬</span>',
+    radius: '50%',
+    shadow: '0 6px 20px rgba(102, 126, 234, 0.3)'
+  },
+  
+  tip: {
+    enabled: true,
+    text: 'Questions about our company? Chat now! 💬',
+    delay: 2000,
+    background: '#ffffff',
+    color: '#333333'
+  }
+};</div>
+    </div>
+
+    <div class="info-card">
+      <h2>🎨 Key Branding Elements</h2>
+      <ul style="color: #666; line-height: 2; font-size: 16px;">
+        <li><strong>Brand Colors:</strong> Purple gradient matching your brand identity</li>
+        <li><strong>Custom Title:</strong> "Your Company Support" instead of generic "Chat"</li>
+        <li><strong>Contextual Prompts:</strong> Specific to your services and offerings</li>
+        <li><strong>Professional Font:</strong> Inter font for modern, clean look</li>
+        <li><strong>Consistent Styling:</strong> All elements use your brand colors</li>
+      </ul>
+    </div>
+
+    <div class="info-card">
+      <h2>✨ How to Match Your Brand</h2>
+      <ol style="color: #666; line-height: 2; font-size: 16px;">
+        <li><strong>Get your brand colors:</strong> Primary and secondary hex codes</li>
+        <li><strong>Set theme.primaryColor:</strong> Your main brand color</li>
+        <li><strong>Set theme.secondaryColor:</strong> Your accent/secondary color</li>
+        <li><strong>Customize title:</strong> Use your company/product name</li>
+        <li><strong>Update prompts:</strong> Match your actual services/offerings</li>
+        <li><strong>Add logo avatar (optional):</strong> Use your logo as bot avatar</li>
+        <li><strong>Set font (optional):</strong> Use your brand's font family</li>
+        <li><strong>Test:</strong> Check on your actual website background</li>
+      </ol>
+    </div>
+
+    <div class="info-card">
+      <h2>🎯 Quick Brand Setup</h2>
+      <p>Replace these values with your brand's:</p>
+      
+      <div class="code-block">theme: {
+  primaryColor: '#YOUR_PRIMARY_COLOR',      // e.g., '#667eea'
+  secondaryColor: '#YOUR_SECONDARY_COLOR',  // e.g., '#764ba2'
+  chatBg: '#YOUR_BG_COLOR',                 // e.g., '#f7f8fc'
+  fontFamily: '"YOUR_FONT", sans-serif'     // e.g., 'Inter'
+}</div>
+
+      <p style="margin-top: 24px;">That's all you need for basic brand matching! The library handles the rest automatically.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>🚀 Ready to Deploy?</h3>
+      <p>Copy the configuration above, replace the chatUrl with your n8n webhook, and you're ready to go!</p>
+    </div>
+  </div>
+
+  <!-- Your Company Branded Theme Configuration -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Your Company Support',
+      titleIcon: '🤖',
+      placeholder: 'Ask us anything...',
+      welcomeMessage: 'Hello! 👋 Welcome to our company. How can we help you today?',
+      starterPrompts: [
+        'What services do you offer?',
+        'ODM/OEM process information',
+        'Request a quote',
+        'Contact support'
+      ],
+      avatars: {
+        bot: '🤖',
+        user: '👤',
+        enabled: true
+      },
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc',
+        fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      button: {
+        enabled: true,
+        icon: '<span style="font-size: 28px">💬</span>',
+        radius: '50%',
+        shadow: '0 6px 20px rgba(102, 126, 234, 0.3)'
+      },
+      tip: {
+        enabled: true,
+        text: 'Questions about our company? Chat now! 💬',
+        delay: 2000,
+        background: '#ffffff',
+        color: '#333333'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

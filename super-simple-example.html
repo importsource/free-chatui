@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Super Simple Example</title>
+</head>
+<body>
+  <h1>My Website</h1>
+  <p>The chat widget will appear automatically in the bottom right corner!</p>
+  
+  <!-- Method 1: Set config before loading scripts (Recommended) -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      placeholder: 'How can we help?',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        'What are your hours?',
+        'I need help with my order'
+      ]
+    };
+  </script>
+  
+  <!-- Just include ONE script - that's it! -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+  
+  <!-- No manual initialization needed! Chat appears automatically! -->
+</body>
+</html>
+

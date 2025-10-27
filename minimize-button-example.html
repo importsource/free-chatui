@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with Minimize Button - N8N Chat Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content {
+      max-width: 800px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    
+    .note strong {
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>📱 Chat with Minimize Button</h1>
+    <p>This example demonstrates the new minimize button feature:</p>
+    
+    <ul class="feature-list">
+      <li><strong>Desktop View:</strong> When you open the chat, the chat icon button switches to a down arrow icon</li>
+      <li><strong>Minimize Chat:</strong> Click the arrow button to minimize the chat window back to the icon</li>
+      <li><strong>Vertical Alignment:</strong> The chat window appears directly above the button, maintaining vertical alignment</li>
+      <li><strong>Mobile View:</strong> On mobile devices, the button is hidden when chat is open (as before)</li>
+      <li><strong>Scroll Button:</strong> A scroll-to-bottom button appears when you scroll up in the chat</li>
+      <li><strong>Responsive:</strong> Fully responsive across all device sizes</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Try it:</strong> Click the chat button in the bottom-right corner to open the chat. Notice how the icon changes to a down arrow, indicating you can minimize it. Click the arrow to minimize the chat again!
+    </div>
+    
+    <div class="note">
+      <strong>Mobile Test:</strong> Resize your browser window to less than 768px width to see the mobile behavior where the button is hidden when chat is open.
+    </div>
+  </div>
+
+  <!-- Include the N8N Chat Widget library -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+
+  <!-- Initialize the chat widget -->
+  <script>
+    // Mock n8n webhook endpoint (replace with your actual endpoint)
+    const chat = new N8NChatUI({
+      chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+      title: 'Support Chat',
+      titleIcon: '💬',
+      welcomeMessage: 'Hello! I\'m here to help. Click the arrow button below to minimize me! 👇',
+      placeholder: 'Type your message...',
+      showTimestamp: true,
+      
+      // Starter prompts
+      starterPrompts: [
+        'How does the minimize button work?',
+        'What happens on mobile devices?',
+        'Tell me about the vertical alignment'
+      ],
+      
+      // Theme customization
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      
+      // Button configuration
+      button: {
+        enabled: true,
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      },
+      
+      // Tip configuration
+      tip: {
+        enabled: true,
+        text: 'Click to chat! Notice the minimize button when open! 👆',
+        delay: 2000
+      },
+      
+      // Avatar configuration
+      avatars: {
+        enabled: true,
+        bot: '🤖',
+        user: '👤'
+      },
+
+      // Footer configuration
+      footer: {
+        enabled: true,
+        html: '© 2024 Your Company',
+        background: '#f9fafb',
+        color: '#6b7280',
+        fontSize: '12px'
+      },
+
+      // Window configuration
+      window: {
+        width: '400px',
+        height: '600px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+      }
+    });
+
+    // Initialize the chat
+    chat.init();
+
+    // Mock response handler for demo purposes
+    // In real implementation, this would be handled by your n8n webhook
+    const originalSendMessage = chat.client.sendMessage.bind(chat.client);
+    chat.client.sendMessage = async function(message, metadata) {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock response based on the message
+      let response = '';
+      
+      if (message.toLowerCase().includes('minimize')) {
+        response = 'The minimize button appears when you open the chat on desktop! Just click the down arrow icon to minimize the chat window. On mobile devices, the button is hidden for a cleaner full-screen experience.';
+      } else if (message.toLowerCase().includes('mobile')) {
+        response = 'On mobile devices (screens under 768px), the chat opens in full-screen mode and the button is completely hidden. This provides a better mobile user experience!';
+      } else if (message.toLowerCase().includes('alignment') || message.toLowerCase().includes('vertical')) {
+        response = 'The chat window is vertically aligned with the button. When you open the chat, it appears directly above the button, creating a cohesive visual flow!';
+      } else {
+        response = 'Great question! The new minimize button feature makes it easy to toggle the chat window. Try clicking the down arrow button to minimize the chat and see how smoothly it works! 🎯';
+      }
+      
+      // Simulate the response format
+      const mockResponse = {
+        message: response,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Trigger the onMessage callback
+      if (this.onMessage) {
+        this.onMessage(mockResponse);
+      }
+      
+      // Update conversation history
+      this.conversationHistory.push({
+        role: 'user',
+        message: message.trim(),
+        timestamp: new Date().toISOString()
+      });
+      
+      this.conversationHistory.push({
+        role: 'assistant',
+        message: response,
+        timestamp: new Date().toISOString(),
+        rawData: mockResponse
+      });
+      
+      return mockResponse;
+    };
+  </script>
+</body>
+</html>
+

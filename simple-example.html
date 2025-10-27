@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Simple Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px;
+    }
+    
+    .content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Welcome to My Website</h1>
+    <p>This is a simple example showing how easy it is to add n8n chat to your site.</p>
+    <p><strong>Look at the bottom right corner</strong> - click the chat button to start!</p>
+    <p>No div needed, no manual initialization. Just configure and include the scripts.</p>
+    <p style="margin-top: 20px; font-size: 14px; color: #999;">
+      💡 Tip: The input field auto-expands! Press <strong>Shift+Enter</strong> for multi-line messages.
+    </p>
+  </div>
+
+  <!-- Super Simple Method: Just configure and include ONE script! -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      titleIcon: 'https://your-domain.com/icon.png',
+      placeholder: 'How can we help you?',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        'What services do you offer?',
+        'What is your process?',
+        'How can I contact you to obtain a quote or for',
+        'more information?'
+      ],
+      avatars: {
+        bot: '🤖',  // Bot avatar (emoji or image URL)
+        user: '👤',  // User avatar (emoji or image URL)
+        enabled: true
+      },
+      button: {
+        enabled: true,  // Toggle button - click to open/close chat
+        icon: '<span style="font-size: 28px">💬</span>',
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      },
+      tip: {
+        enabled: true,  // Show helpful tip
+        text: 'Need help? Chat with us! 💬',
+        delay: 2000  // Show after 2 seconds
+      },
+      window: {'width': '400px',
+    'height': '700px',
+    'maxWidth': '500px',
+    'maxHeight': '85vh',
+    'borderRadius': '16px',
+    'boxShadow': '0 6px 25px rgba(0, 0, 0, 0.18)',
+    'border': '2px solid #667eea'
+  },
+  voice: {
+                enabled: true,
+                language: 'en-US',
+                continuous: false,
+                interimResults: true,
+                maxAlternatives: 1
+            },
+      fileUpload: {
+        enabled: true,
+        maxFileSize: 10 * 1024 * 1024, // 10MB
+        allowedTypes: ['image/*', 'application/pdf', 'text/*'],
+        maxFiles: 5,
+        uploadUrl: 'http://localhost:8090/nexusense/api/upload',
+        downloadUrl: 'http://localhost:8090/nexusense/api/files',
+        showPreview: true
+      },
+      theme: { primaryColor: '#ff6b6b', secondaryColor: '#ee5a6f', chatBg: '#fff5f5' },
+      footer: {
+        enabled: true,
+        html: '© 2024 Your Company | <a href="https://example.com/privacy" target="_blank">Privacy Policy</a> | <a href="https://example.com/terms" target="_blank">Terms of Service</a>',
+        background: '#f9fafb',
+        color: '#6b7280',
+        fontSize: '12px',
+        padding: '12px 16px',
+        borderTop: '1px solid #e5e7eb'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+  
+  <!-- That's it! Just ONE file! The chat appears automatically in the bottom right corner -->
+</body>
+</html>

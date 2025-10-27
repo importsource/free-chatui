@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll to Bottom Button - N8N Chat Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content {
+      max-width: 800px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    
+    .note strong {
+      color: #667eea;
+    }
+
+    .demo-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .demo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .demo-button:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>📜 Scroll to Bottom Button</h1>
+    <p>This example demonstrates the new scroll-to-bottom button feature:</p>
+    
+    <ul class="feature-list">
+      <li><strong>Auto-Appear:</strong> Button appears when you scroll up from the bottom</li>
+      <li><strong>Smart Detection:</strong> Shows when you're more than 100px from the bottom</li>
+      <li><strong>Smooth Scroll:</strong> Click to smoothly scroll back to the latest messages</li>
+      <li><strong>Auto-Hide:</strong> Disappears when you're at the bottom</li>
+      <li><strong>Elegant Design:</strong> Circular button with icon in the bottom-right corner</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Try it:</strong> 
+      <ol style="margin: 10px 0; padding-left: 20px;">
+        <li>Click the chat button to open the chat</li>
+        <li>Click the "Add 10 Messages" button below to simulate a long conversation</li>
+        <li>Scroll up in the chat messages</li>
+        <li>Notice the scroll-to-bottom button appears in the bottom-right</li>
+        <li>Click it to smoothly scroll back to the latest message!</li>
+      </ol>
+      <button class="demo-button" id="add-messages-btn">Add 10 Messages for Testing</button>
+    </div>
+
+    <div class="note">
+      <strong>Features:</strong><br>
+      • Button only appears when scrolled up more than 100px from bottom<br>
+      • Smooth scrolling animation when clicked<br>
+      • Matches your theme's gradient colors<br>
+      • Responsive and works on all devices<br>
+      • Automatically hidden when at the bottom
+    </div>
+  </div>
+
+  <!-- Include the N8N Chat Widget library -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+
+  <!-- Initialize the chat widget -->
+  <script>
+    // Mock n8n webhook endpoint (replace with your actual endpoint)
+    const chat = new N8NChatUI({
+      chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+      title: 'Support Chat',
+      titleIcon: '💬',
+      welcomeMessage: 'Hello! Try adding messages and scrolling up to see the scroll-to-bottom button! 📜',
+      placeholder: 'Type your message...',
+      showTimestamp: true,
+      
+      // Starter prompts
+      starterPrompts: [
+        'Tell me about the scroll button',
+        'How does it work?',
+        'Can I customize it?'
+      ],
+      
+      // Theme customization
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      
+      // Button configuration
+      button: {
+        enabled: true,
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      },
+      
+      // Tip configuration
+      tip: {
+        enabled: true,
+        text: 'Chat with us! Try the scroll button! 📜',
+        delay: 2000
+      },
+      
+      // Avatar configuration
+      avatars: {
+        enabled: true,
+        bot: '🤖',
+        user: '👤'
+      },
+
+      // Footer configuration
+      footer: {
+        enabled: true,
+        html: '© 2024 Your Company',
+        background: '#f9fafb',
+        color: '#6b7280',
+        fontSize: '12px'
+      },
+
+      // Window configuration
+      window: {
+        width: '400px',
+        height: '600px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+      }
+    });
+
+    // Initialize the chat
+    chat.init();
+
+    // Add button to quickly add messages for testing
+    document.getElementById('add-messages-btn').addEventListener('click', () => {
+      const messages = [
+        'This is message 1',
+        'This is message 2',
+        'This is message 3',
+        'This is message 4',
+        'This is message 5',
+        'This is message 6',
+        'This is message 7',
+        'This is message 8',
+        'This is message 9',
+        'This is message 10 - Now scroll up to see the scroll-to-bottom button appear!'
+      ];
+
+      messages.forEach((msg, index) => {
+        setTimeout(() => {
+          chat.addMessage(msg, index % 2 === 0 ? 'user' : 'bot');
+        }, index * 200);
+      });
+    });
+
+    // Mock response handler for demo purposes
+    // In real implementation, this would be handled by your n8n webhook
+    const originalSendMessage = chat.client.sendMessage.bind(chat.client);
+    chat.client.sendMessage = async function(message, metadata) {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock response based on the message
+      let response = '';
+      
+      if (message.toLowerCase().includes('scroll')) {
+        response = 'The scroll-to-bottom button automatically appears when you scroll up in the chat! It\'s positioned in the bottom-right corner of the messages area. When you click it, it smoothly scrolls you back to the latest message. The button disappears when you\'re already at the bottom. Try it out by scrolling up! 📜';
+      } else if (message.toLowerCase().includes('work')) {
+        response = 'The scroll button uses smart detection - it monitors your scroll position and appears when you\'re more than 100px away from the bottom. This prevents it from showing up accidentally when you\'re already near the bottom. When clicked, it uses smooth scrolling animation for a better user experience! 🎯';
+      } else if (message.toLowerCase().includes('customize')) {
+        response = 'The scroll button automatically matches your theme\'s gradient colors! It inherits the primary and secondary colors you set in the theme configuration. The button style is consistent with the rest of your chat UI design. 🎨';
+      } else {
+        response = 'Great question! The scroll-to-bottom button is a helpful feature for long conversations. Try asking about how it works or what makes it special! You can also click the "Add 10 Messages" button on the page to test it out. 💬';
+      }
+      
+      // Simulate the response format
+      const mockResponse = {
+        message: response,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Trigger the onMessage callback
+      if (this.onMessage) {
+        this.onMessage(mockResponse);
+      }
+      
+      // Update conversation history
+      this.conversationHistory.push({
+        role: 'user',
+        message: message.trim(),
+        timestamp: new Date().toISOString()
+      });
+      
+      this.conversationHistory.push({
+        role: 'assistant',
+        message: response,
+        timestamp: new Date().toISOString(),
+        rawData: mockResponse
+      });
+      
+      return mockResponse;
+    };
+  </script>
+</body>
+</html>
+

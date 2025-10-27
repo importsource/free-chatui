@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with Custom Footer - N8N Chat Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content {
+      max-width: 800px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    
+    .note strong {
+      color: #667eea;
+    }
+
+    .code-example {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .code-example pre {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>📄 Chat with Custom Footer</h1>
+    <p>This example demonstrates the new customizable footer feature:</p>
+    
+    <ul class="feature-list">
+      <li><strong>Fully Customizable:</strong> Add any HTML content to the footer</li>
+      <li><strong>Copyright Info:</strong> Display copyright, legal notices, or terms</li>
+      <li><strong>Links:</strong> Add links to privacy policy, terms of service, etc.</li>
+      <li><strong>Custom Styling:</strong> Control background, color, font size, padding, and border</li>
+      <li><strong>Responsive:</strong> Works seamlessly on all devices</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Try it:</strong> Click the chat button to see the custom footer at the bottom of the chat window with copyright information and a link! Also notice the scroll-to-bottom button that appears when you scroll up in the messages.
+    </div>
+
+    <div class="code-example">
+      <strong>Example Configuration:</strong>
+      <pre>
+footer: {
+  enabled: true,
+  html: '© 2024 Your Company | <a href="#">Privacy Policy</a>',
+  background: '#f9fafb',
+  color: '#6b7280',
+  fontSize: '12px',
+  padding: '12px 16px',
+  borderTop: '1px solid #e5e7eb'
+}
+      </pre>
+    </div>
+
+    <div class="note">
+      <strong>More Examples:</strong>
+      <br><br>
+      <strong>Simple Copyright:</strong><br>
+      <code>html: '© 2024 Your Company. All rights reserved.'</code>
+      <br><br>
+      <strong>With Links:</strong><br>
+      <code>html: 'Powered by AI | <a href="#">Terms</a> | <a href="#">Privacy</a>'</code>
+      <br><br>
+      <strong>Multi-line:</strong><br>
+      <code>html: '© 2024 Company&lt;br&gt;Email: support@example.com'</code>
+    </div>
+  </div>
+
+  <!-- Include the N8N Chat Widget library -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+
+  <!-- Initialize the chat widget -->
+  <script>
+    // Mock n8n webhook endpoint (replace with your actual endpoint)
+    const chat = new N8NChatUI({
+      chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+      title: 'Support Chat',
+      titleIcon: '💬',
+      welcomeMessage: 'Hello! Notice the custom footer at the bottom with copyright info! 📄',
+      placeholder: 'Type your message...',
+      showTimestamp: true,
+      
+      // Starter prompts
+      starterPrompts: [
+        'Tell me about the footer feature',
+        'What can I customize?',
+        'Can I add links in the footer?'
+      ],
+      
+      // Theme customization
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      
+      // Button configuration
+      button: {
+        enabled: true,
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      },
+      
+      // Tip configuration
+      tip: {
+        enabled: true,
+        text: 'Chat with us! Check out our new footer! 📄',
+        delay: 2000
+      },
+      
+      // Avatar configuration
+      avatars: {
+        enabled: true,
+        bot: '🤖',
+        user: '👤'
+      },
+
+      // Footer configuration - NEW FEATURE!
+      footer: {
+        enabled: true,
+        html: '© 2024 Your Company | <a href="https://example.com/privacy" target="_blank">Privacy Policy</a> | <a href="https://example.com/terms" target="_blank">Terms of Service</a>',
+        background: '#f9fafb',
+        color: '#6b7280',
+        fontSize: '12px',
+        padding: '12px 16px',
+        borderTop: '1px solid #e5e7eb'
+      },
+
+      // Window configuration
+      window: {
+        width: '400px',
+        height: '600px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+      }
+    });
+
+    // Initialize the chat
+    chat.init();
+
+    // Mock response handler for demo purposes
+    // In real implementation, this would be handled by your n8n webhook
+    const originalSendMessage = chat.client.sendMessage.bind(chat.client);
+    chat.client.sendMessage = async function(message, metadata) {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock response based on the message
+      let response = '';
+      
+      if (message.toLowerCase().includes('footer')) {
+        response = 'The footer feature lets you add custom HTML content at the bottom of the chat! You can add copyright notices, links to privacy policies, terms of service, or any other information you want to display. It\'s fully customizable with control over styling!';
+      } else if (message.toLowerCase().includes('customize')) {
+        response = 'You can customize the footer\'s background color, text color, font size, padding, and border. Plus, you can add any HTML content including text, links, images, or even icons! 🎨';
+      } else if (message.toLowerCase().includes('link')) {
+        response = 'Yes! You can add links in the footer. They will automatically be styled with your theme\'s primary color and include hover effects. Perfect for linking to your privacy policy, terms of service, or contact pages! 🔗';
+      } else {
+        response = 'Great question! The footer is a flexible way to add important information at the bottom of your chat widget. Try asking about customization options or what you can include in the footer! 📄';
+      }
+      
+      // Simulate the response format
+      const mockResponse = {
+        message: response,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Trigger the onMessage callback
+      if (this.onMessage) {
+        this.onMessage(mockResponse);
+      }
+      
+      // Update conversation history
+      this.conversationHistory.push({
+        role: 'user',
+        message: message.trim(),
+        timestamp: new Date().toISOString()
+      });
+      
+      this.conversationHistory.push({
+        role: 'assistant',
+        message: response,
+        timestamp: new Date().toISOString(),
+        rawData: mockResponse
+      });
+      
+      return mockResponse;
+    };
+  </script>
+</body>
+</html>
+

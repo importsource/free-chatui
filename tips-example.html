@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Tips/Tooltips Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .example-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    
+    .example-section p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info-box strong {
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💡 Chat Tips & Tooltips Examples</h1>
+
+    <div class="info-box">
+      <strong>Try it now!</strong> Wait 2 seconds and you'll see a tip appear near the chat button in the bottom right corner. Click the chat button or the X to close the tip!
+    </div>
+
+    <div class="examples">
+      <!-- Example 1 -->
+      <div class="example-section">
+        <h2>1️⃣ Default Tip</h2>
+        <p>Simple, helpful tip with default styling</p>
+        <div class="code-block">tip: {
+  enabled: true,
+  text: 'Need help? Chat with us!',
+  delay: 2000
+}</div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="example-section">
+        <h2>2️⃣ Quick Tip</h2>
+        <p>Show tip immediately (500ms)</p>
+        <div class="code-block">tip: {
+  text: '💬 Chat now!',
+  delay: 500
+}</div>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="example-section">
+        <h2>3️⃣ Custom Color Tip</h2>
+        <p>Branded tip with custom colors</p>
+        <div class="code-block">tip: {
+  text: 'We\'re online! 🟢',
+  background: '#4caf50',
+  color: '#ffffff',
+  delay: 2000
+}</div>
+      </div>
+
+      <!-- Example 4 -->
+      <div class="example-section">
+        <h2>4️⃣ Persistent Tip</h2>
+        <p>Tip stays visible until manually closed</p>
+        <div class="code-block">tip: {
+  text: 'Questions? Ask us!',
+  autoHide: false,
+  delay: 1000
+}</div>
+      </div>
+
+      <!-- Example 5 -->
+      <div class="example-section">
+        <h2>5️⃣ Friendly Welcome</h2>
+        <p>Warm, inviting message with emoji</p>
+        <div class="code-block">tip: {
+  text: '👋 Hey there! Need assistance?',
+  background: '#667eea',
+  color: '#ffffff',
+  delay: 1500
+}</div>
+      </div>
+
+      <!-- Example 6 -->
+      <div class="example-section">
+        <h2>6️⃣ Urgency Tip</h2>
+        <p>Create urgency with quick display</p>
+        <div class="code-block">tip: {
+  text: '⚡ Live support available now!',
+  background: '#ff6b6b',
+  color: '#ffffff',
+  delay: 500
+}</div>
+      </div>
+    </div>
+
+    <!-- Full Configuration -->
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>🎨 Complete Tip Configuration</h2>
+      <p>All available options:</p>
+      <div class="code-block">window.N8N_CHAT_CONFIG = {
+  chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+  button: {
+    enabled: true
+  },
+  tip: {
+    enabled: true,                           // Show/hide tip
+    text: 'Need help? Chat with us! 💬',     // Tip message
+    delay: 2000,                              // Delay before showing (ms)
+    autoHide: true,                           // Hide on first interaction
+    background: '#ffffff',                    // Background color
+    color: '#333333',                         // Text color
+    shadow: '0 4px 16px rgba(0,0,0,0.15)'   // Box shadow
+  }
+};</div>
+      
+      <h3 style="margin-top: 30px; color: #667eea;">Tip Behavior</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li><strong>Auto-show:</strong> Tips appear automatically after the specified delay</li>
+        <li><strong>Auto-hide:</strong> By default, tips hide when user clicks the chat button or X</li>
+        <li><strong>Persistent:</strong> Set <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px;">autoHide: false</code> to keep tip visible</li>
+        <li><strong>Animations:</strong> Smooth slide-in and slide-out animations</li>
+        <li><strong>Close button:</strong> Users can always manually close the tip</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Best Practices</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>✅ Keep tip text short and friendly (under 40 characters)</li>
+        <li>✅ Use emojis to make tips more inviting</li>
+        <li>✅ Set delay between 1-3 seconds for best results</li>
+        <li>✅ Match tip colors to your brand</li>
+        <li>✅ Test on mobile to ensure readability</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- This page uses the default tip configuration -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      placeholder: 'How can we help you?',
+      button: {
+        enabled: true
+      },
+      tip: {
+        enabled: true,
+        text: 'Need help? Chat with us! 💬',
+        delay: 2000,
+        background: '#ffffff',
+        color: '#333333'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

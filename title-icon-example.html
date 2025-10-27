@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Title Icon Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .example-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    
+    .example-section p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info-box strong {
+      color: #1976d2;
+    }
+    
+    .preview-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .preview-header span {
+      font-size: 24px;
+    }
+    
+    .preview-header h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Title Icon Customization</h1>
+
+    <div class="info-box">
+      <strong>Try it now!</strong> Click the chat button in the bottom right corner. Notice the icon next to "Support Chat" in the header. Title icons support emojis, SVG, and image URLs - all automatically detected!
+    </div>
+
+    <div class="example-section" style="max-width: 100%; margin-bottom: 30px;">
+      <h2>🎯 How Title Icons Work</h2>
+      <ul style="color: #666; line-height: 1.8;">
+        <li><strong>Auto URL Detection:</strong> Just provide a URL - the library automatically creates an &lt;img&gt; tag</li>
+        <li><strong>Supported URLs:</strong> http://, https://, /, and data: URLs</li>
+        <li><strong>Emoji:</strong> Any emoji works out of the box</li>
+        <li><strong>Custom HTML/SVG:</strong> Full HTML/SVG support</li>
+        <li><strong>Auto-sizing:</strong> Images automatically sized to 24x24px</li>
+        <li><strong>Smart rendering:</strong> Rounded corners for better appearance</li>
+      </ul>
+    </div>
+
+    <div class="examples">
+      <!-- Example 1 -->
+      <div class="example-section">
+        <h2>1️⃣ Chat Bubble Icon</h2>
+        <p>Classic chat icon</p>
+        <div class="preview-header">
+          <span>💬</span>
+          <h3>Support Chat</h3>
+        </div>
+        <div class="code-block">title: 'Support Chat',
+titleIcon: '💬'</div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="example-section">
+        <h2>2️⃣ Robot/AI Icon</h2>
+        <p>Perfect for AI chatbots</p>
+        <div class="preview-header">
+          <span>🤖</span>
+          <h3>AI Assistant</h3>
+        </div>
+        <div class="code-block">title: 'AI Assistant',
+titleIcon: '🤖'</div>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="example-section">
+        <h2>3️⃣ Support/Headset Icon</h2>
+        <p>Customer support theme</p>
+        <div class="preview-header">
+          <span>🎧</span>
+          <h3>Customer Support</h3>
+        </div>
+        <div class="code-block">title: 'Customer Support',
+titleIcon: '🎧'</div>
+      </div>
+
+      <!-- Example 4 -->
+      <div class="example-section">
+        <h2>4️⃣ Business/Company Icon</h2>
+        <p>Corporate/professional</p>
+        <div class="preview-header">
+          <span>🏢</span>
+          <h3>Company Chat</h3>
+        </div>
+        <div class="code-block">title: 'Company Chat',
+titleIcon: '🏢'</div>
+      </div>
+
+      <!-- Example 5 -->
+      <div class="example-section">
+        <h2>5️⃣ Help/Question Icon</h2>
+        <p>Help desk or FAQ</p>
+        <div class="preview-header">
+          <span>❓</span>
+          <h3>Help Center</h3>
+        </div>
+        <div class="code-block">title: 'Help Center',
+titleIcon: '❓'</div>
+      </div>
+
+      <!-- Example 6 -->
+      <div class="example-section">
+        <h2>6️⃣ Lightbulb/Ideas Icon</h2>
+        <p>Tips and suggestions</p>
+        <div class="preview-header">
+          <span>💡</span>
+          <h3>Ideas & Tips</h3>
+        </div>
+        <div class="code-block">title: 'Ideas & Tips',
+titleIcon: '💡'</div>
+      </div>
+
+      <!-- Example 7 -->
+      <div class="example-section">
+        <h2>7️⃣ Sales/Target Icon</h2>
+        <p>Sales and lead generation</p>
+        <div class="preview-header">
+          <span>🎯</span>
+          <h3>Sales Chat</h3>
+        </div>
+        <div class="code-block">title: 'Sales Chat',
+titleIcon: '🎯'</div>
+      </div>
+
+      <!-- Example 8 -->
+      <div class="example-section">
+        <h2>8️⃣ Custom SVG Icon</h2>
+        <p>Use your own custom SVG</p>
+        <div class="code-block">title: 'Custom Chat',
+titleIcon: `&lt;svg width="20" height="20" fill="white"&gt;
+  &lt;circle cx="10" cy="10" r="8"/&gt;
+  &lt;text x="10" y="14" text-anchor="middle" 
+        font-size="12" fill="#667eea"&gt;?&lt;/text&gt;
+&lt;/svg&gt;`</div>
+        <p style="font-size: 13px; color: #999; margin-top: 10px;">
+          Note: Make sure SVG has proper fill/stroke colors for visibility
+        </p>
+      </div>
+
+      <!-- Example 9 -->
+      <div class="example-section">
+        <h2>9️⃣ Logo Image URL</h2>
+        <p>Use your company logo via URL (auto-detected!)</p>
+        <div class="code-block">title: 'Your Company Support',
+titleIcon: 'https://your-domain.com/icon.png'</div>
+        <p style="font-size: 13px; color: #999; margin-top: 10px;">
+          Note: URLs are automatically detected and rendered as images. No need to wrap in &lt;img&gt; tags!
+        </p>
+      </div>
+
+      <!-- Example 10 -->
+      <div class="example-section">
+        <h2>🔟 Relative Path Image</h2>
+        <p>Use relative paths for local images</p>
+        <div class="code-block">title: 'Support',
+titleIcon: '/images/logo.png'</div>
+        <p style="font-size: 13px; color: #999; margin-top: 10px;">
+          Relative paths (starting with /) are also auto-detected
+        </p>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>✨ Title Icon Best Practices</h2>
+      
+      <h3 style="margin-top: 20px; color: #667eea;">Do's:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>✅ Use emoji for simplicity (no external files)</li>
+        <li>✅ Use image URLs for brand logos (automatically detected!)</li>
+        <li>✅ Match icon to your service type</li>
+        <li>✅ Keep icons simple and recognizable</li>
+        <li>✅ Use square images for best results (auto-sized to 24x24px)</li>
+        <li>✅ Ensure icon has good contrast with header background</li>
+        <li>✅ Test on both desktop and mobile</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: #667eea;">Don'ts:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>❌ Don't use large images (slows loading)</li>
+        <li>❌ Don't use complex multi-color icons (may clash)</li>
+        <li>❌ Don't forget to test on mobile</li>
+        <li>❌ Don't use icons that don't match your service</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Icon Categories</h3>
+      
+      <p style="margin-top: 15px;"><strong>Communication:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">💬 📧 📞 💌 📨</div>
+      
+      <p style="margin-top: 15px;"><strong>Support:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">🎧 🛠️ 🔧 ⚙️ 🆘</div>
+      
+      <p style="margin-top: 15px;"><strong>AI/Tech:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">🤖 🧠 💻 ⚡ 🔮</div>
+      
+      <p style="margin-top: 15px;"><strong>Business:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">🏢 💼 📊 💰 🎯</div>
+      
+      <p style="margin-top: 15px;"><strong>Help/Info:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">❓ ❔ ℹ️ 💡 📚</div>
+      
+      <p style="margin-top: 15px;"><strong>Friendly/Fun:</strong></p>
+      <div class="code-block" style="display: inline-block; padding: 8px 12px; margin: 5px 0;">😊 👋 🎉 ⭐ 🌟</div>
+    </div>
+
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>🎯 Complete Example</h2>
+      <p>Here's a full configuration with title icon:</p>
+      
+      <div class="code-block">window.N8N_CHAT_CONFIG = {
+  chatUrl: 'YOUR_URL',
+  title: 'Support Chat',
+  titleIcon: '💬',              // Add icon to title
+  welcomeMessage: 'Hello! 👋 How can I help?',
+  starterPrompts: ['Help', 'Info'],
+  avatars: { bot: '🤖', user: '👤' },
+  theme: {
+    primaryColor: '#667eea',
+    secondaryColor: '#764ba2'
+  }
+};</div>
+    </div>
+  </div>
+
+  <!-- This page uses a chat bubble icon -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      titleIcon: '💬',
+      placeholder: 'Ask us anything...',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        'What can you help with?',
+        'Tell me about title icons',
+        'Show me examples'
+      ],
+      avatars: {
+        bot: '🤖',
+        user: '👤',
+        enabled: true
+      },
+      button: {
+        enabled: true,
+        icon: '💬'
+      },
+      tip: {
+        enabled: true,
+        text: 'Click to see the title icon! 💬',
+        delay: 2000
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Custom Button Styles</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #f0f2f5;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .example-card h2 {
+      color: #667eea;
+      margin-top: 0;
+      font-size: 20px;
+    }
+    
+    .example-card p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .code-block {
+      background: #f7f8fc;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 13px;
+      margin: 10px 0;
+    }
+    
+    .demo-note {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 12px;
+      margin: 20px 0;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Custom Button Styling Examples</h1>
+    
+    <div class="demo-note">
+      <strong>This page shows different button customization options.</strong><br>
+      The chat on this page uses <strong>Example 1</strong> (Emoji Icon). Try the other examples in your own code!
+    </div>
+    
+    <div class="examples-grid">
+      <!-- Example 1 -->
+      <div class="example-card">
+        <h2>1️⃣ Emoji Icon</h2>
+        <p>Use emoji as your chat icon</p>
+        <div class="code-block">button: {
+  enabled: true,
+  icon: '&lt;span style="font-size: 32px"&gt;💬&lt;/span&gt;',
+  radius: '50%',
+  shadow: '0 4px 12px rgba(0,0,0,0.15)'
+}</div>
+      </div>
+      
+      <!-- Example 2 -->
+      <div class="example-card">
+        <h2>2️⃣ Rounded Square</h2>
+        <p>Square button with rounded corners</p>
+        <div class="code-block">button: {
+  enabled: true,
+  radius: '12px',
+  border: '2px solid #667eea',
+  shadow: '0 6px 16px rgba(102,126,234,0.3)',
+  background: '#667eea'
+}</div>
+      </div>
+      
+      <!-- Example 3 -->
+      <div class="example-card">
+        <h2>3️⃣ Larger Button</h2>
+        <p>Bigger button with custom styling</p>
+        <div class="code-block">button: {
+  enabled: true,
+  icon: '&lt;span style="font-size: 40px"&gt;👋&lt;/span&gt;',
+  radius: '50%',
+  border: '3px solid white',
+  shadow: '0 8px 24px rgba(0,0,0,0.2)',
+  background: '#ff6b6b'
+}
+
+// Note: Add custom CSS for size:
+.n8n-chat-toggle-btn {
+  width: 80px !important;
+  height: 80px !important;
+}</div>
+      </div>
+      
+      <!-- Example 4 -->
+      <div class="example-card">
+        <h2>4️⃣ Minimal Style</h2>
+        <p>Clean, minimal button</p>
+        <div class="code-block">button: {
+  enabled: true,
+  radius: '8px',
+  border: '1px solid #e0e0e0',
+  shadow: '0 2px 4px rgba(0,0,0,0.1)',
+  background: '#ffffff'
+}
+
+// Use dark icon for white background
+icon: '&lt;svg fill="#333"&gt;...&lt;/svg&gt;'</div>
+      </div>
+      
+      <!-- Example 5 -->
+      <div class="example-card">
+        <h2>5️⃣ Neon Glow</h2>
+        <p>Glowing effect with bright colors</p>
+        <div class="code-block">button: {
+  enabled: true,
+  radius: '50%',
+  border: '2px solid #00ffff',
+  shadow: '0 0 20px rgba(0,255,255,0.5)',
+  background: 'linear-gradient(135deg, #667eea, #00ffff)'
+}</div>
+      </div>
+      
+      <!-- Example 6 -->
+      <div class="example-card">
+        <h2>6️⃣ Custom SVG Icon</h2>
+        <p>Use your own SVG icon</p>
+        <div class="code-block">button: {
+  enabled: true,
+  icon: `&lt;svg width="28" height="28"&gt;
+    &lt;circle cx="14" cy="14" r="12" fill="white"/&gt;
+    &lt;text x="14" y="18" text-anchor="middle" 
+          fill="#667eea" font-size="16"&gt;?&lt;/text&gt;
+  &lt;/svg&gt;`,
+  radius: '50%'
+}</div>
+      </div>
+    </div>
+    
+    <div class="example-card" style="max-width: 100%; margin-top: 20px;">
+      <h2>💡 Advanced: Control Programmatically</h2>
+      <p>You can control the chat with JavaScript:</p>
+      <div class="code-block">// After auto-initialization
+const chat = window.n8nChat;
+
+// Open chat
+chat.openChat();
+
+// Close chat
+chat.closeChat();
+
+// Toggle
+chat.toggleChat();
+
+// Or with manual init
+const chat = new N8NChatUI({ ... });
+chat.init();
+chat.openChat(); // Open immediately</div>
+      
+      <p style="margin-top: 20px;">Example: Open chat after 3 seconds</p>
+      <div class="code-block">setTimeout(() => {
+  window.n8nChat.openChat();
+}, 3000);</div>
+    </div>
+  </div>
+
+  <!-- This page uses Example 1: Emoji Icon -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      placeholder: 'How can we help you?',
+      button: {
+        enabled: true,
+        icon: '<span style="font-size: 32px">💬</span>',
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

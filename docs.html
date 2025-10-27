@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Free Chat UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e9ecef;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 2rem 2rem 2rem;
+            border-bottom: 1px solid #e9ecef;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-header h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0 1rem;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .content-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .content-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .content-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .doc-content {
+            padding: 3rem;
+            max-width: none;
+        }
+        
+        .doc-section {
+            display: none;
+        }
+        
+        .doc-section.active {
+            display: block;
+        }
+        
+        /* Markdown Styles */
+        .doc-content h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .doc-content h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .doc-content h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .doc-content h4 {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .doc-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .doc-content ul,
+        .doc-content ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        .doc-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .doc-content code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            color: #d63384;
+        }
+        
+        .doc-content pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .doc-content blockquote {
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .doc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .doc-content th,
+        .doc-content td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .doc-content th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .doc-content tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .doc-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .doc-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Back to Home */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .back-home:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .main-content {
+                margin: 1rem;
+            }
+            
+            .doc-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-header h1 {
+                font-size: 2rem;
+            }
+            
+            .back-home {
+                position: static;
+                display: block;
+                text-align: center;
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-home">← Back to Home</a>
+    
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 Documentation</h2>
+                <p>Free Chat UI Library</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <div class="nav-link active" data-section="readme">📖 README</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="quickstart">⚡ Quick Start</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="features">🚀 Features</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="theme">🎨 Theme Guide</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="usage">🔧 Usage Methods</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="prompts">💬 Starter Prompts</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" data-section="single">📄 Single File Guide</div>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="doc-title">📖 README</h1>
+                <p id="doc-description">Complete guide to Free Chat UI Library</p>
+            </div>
+            <div class="doc-content">
+                <!-- README Section -->
+                <div class="doc-section active" id="readme">
+                    <h1>N8N Chat Library 💬</h1>
+                    <p>A lightweight, easy-to-use JavaScript library for integrating n8n chat workflows into your web applications. <strong>Just ONE file</strong>, set your <code>chatUrl</code>, and you're ready to go!</p>
+                    
+                    <pre><code>&lt;!-- Super simple - just 1 script tag! --&gt;
+&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'YOUR_URL',
+    title: 'Support',
+    titleIcon: '💬',
+    welcomeMessage: 'Hello! 👋 How can I help?',
+    starterPrompts: ['I have a question', 'I need help']
+  };
+&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <h2>✨ Features</h2>
+                    <ul>
+                        <li><strong>🎤 Voice Recording</strong> - Record and send voice messages with social media-style bubbles</li>
+                        <li><strong>📁 File Upload</strong> - Upload images, documents, and files with drag-and-drop support</li>
+                        <li><strong>🎨 Customizable Theme</strong> - Fully customizable colors, fonts, sizes, and styling</li>
+                        <li><strong>🔗 Embedded Mode</strong> - Embed chat directly into your page layout</li>
+                        <li><strong>📱 Responsive Design</strong> - Works perfectly on desktop, tablet, and mobile devices</li>
+                        <li><strong>💬 Welcome Messages</strong> - Greet users with custom welcome messages</li>
+                        <li><strong>🚀 Starter Prompts</strong> - Clickable starter prompts to help users begin conversations</li>
+                        <li><strong>👤 Avatar Support</strong> - Customizable bot and user avatars (emoji or images)</li>
+                        <li><strong>⚡ Easy Integration</strong> - Simple one-line integration with N8N webhooks</li>
+                        <li><strong>🔧 Advanced Features</strong> - Scroll-to-bottom button, customizable footer, window sizing</li>
+                    </ul>
+
+                    <h2>🚀 Quick Start</h2>
+                    <p>Get started in seconds with the super simple method:</p>
+                    
+                    <pre><code>&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+    title: 'Support Chat',
+    placeholder: 'How can we help you today?'
+  };
+&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <p><strong>Done!</strong> The chat widget automatically appears on your page. No div needed, no manual initialization!</p>
+
+                    <h2>📖 Documentation</h2>
+                    <p>Explore the sidebar to learn about:</p>
+                    <ul>
+                        <li><strong>Quick Start</strong> - Get up and running in minutes</li>
+                        <li><strong>Features</strong> - Comprehensive feature overview</li>
+                        <li><strong>Theme Guide</strong> - Customize colors, fonts, and styling</li>
+                        <li><strong>Usage Methods</strong> - Different integration approaches</li>
+                        <li><strong>Starter Prompts</strong> - Guide users with conversation starters</li>
+                        <li><strong>Single File Guide</strong> - Everything you need in one file</li>
+                    </ul>
+
+                    <h2>🎯 Live Examples</h2>
+                    <p>Try out the features with our interactive examples:</p>
+                    <ul>
+                        <li><a href="simple-example.html">Basic Example</a> - Simple chat widget</li>
+                        <li><a href="voice-recording-example.html">Voice Recording</a> - Record and send voice messages</li>
+                        <li><a href="file-upload-example.html">File Upload</a> - Upload images and documents</li>
+                        <li><a href="embedded-mode-example.html">Embedded Mode</a> - Integrate into page layout</li>
+                        <li><a href="theme-example.html">Theme Customization</a> - Custom colors and styling</li>
+                        <li><a href="complete-example.html">Complete Features</a> - All features enabled</li>
+                    </ul>
+                </div>
+
+                <!-- Quick Start Section -->
+                <div class="doc-section" id="quickstart">
+                    <h1>⚡ Quick Start Guide</h1>
+                    <p>Get your chat widget up and running in under 5 minutes!</p>
+
+                    <h2>🚀 Method 1: Super Simple (Recommended)</h2>
+                    <p>Just add this to your HTML - the chat appears automatically:</p>
+                    
+                    <pre><code>&lt;!-- Set your configuration --&gt;
+&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+    title: 'Support Chat',
+    placeholder: 'How can we help you?',
+    welcomeMessage: 'Hello! 👋 How can I help?',
+    starterPrompts: [
+      'I have a question',
+      'I need help',
+      'Tell me more'
+    ]
+  };
+&lt;/script&gt;
+
+&lt;!-- Include ONE script - that's it! --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <p><strong>Done!</strong> The chat widget automatically appears with:</p>
+                    <ul>
+                        <li>✅ Toggle button in bottom-right corner</li>
+                        <li>✅ Welcome message when opened</li>
+                        <li>✅ Clickable starter prompts</li>
+                        <li>✅ Full mobile responsiveness</li>
+                    </ul>
+
+                    <h2>🎯 Method 2: Manual Control</h2>
+                    <p>For more control over initialization:</p>
+                    
+                    <pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const chat = new N8NChatUI({
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+    title: 'Support Chat',
+    placeholder: 'How can we help you?'
+  });
+  chat.init();
+&lt;/script&gt;</code></pre>
+
+                    <h2>🔧 N8N Webhook Setup</h2>
+                    <p>Your N8N workflow should:</p>
+                    <ol>
+                        <li><strong>Receive POST requests</strong> with this format:</li>
+                    </ol>
+                    
+                    <pre><code>{
+  "chatInput": "User's message",
+  "sessionId": "unique-session-id",
+  "timestamp": "2024-10-21T10:30:00.000Z"
+}</code></pre>
+
+                    <ol start="2">
+                        <li><strong>Return a response</strong> in one of these formats:</li>
+                    </ol>
+                    
+                    <pre><code>// Simple string
+"Bot response message"
+
+// Or object with message field
+{
+  "message": "Bot response message"
+}</code></pre>
+                </div>
+
+                <!-- Features Section -->
+                <div class="doc-section" id="features">
+                    <h1>🚀 Complete Features Overview</h1>
+                    <p>Discover all the powerful features included in Free Chat UI:</p>
+
+                    <h2>🎤 Voice Recording</h2>
+                    <ul>
+                        <li>Record and send voice messages</li>
+                        <li>Social media-style voice bubbles</li>
+                        <li>Playback controls with waveform animation</li>
+                        <li>Automatic server upload integration</li>
+                    </ul>
+
+                    <h2>📁 File Upload</h2>
+                    <ul>
+                        <li>Drag-and-drop file uploads</li>
+                        <li>Image preview with swipe navigation</li>
+                        <li>Support for multiple file types</li>
+                        <li>Server integration for file storage</li>
+                    </ul>
+
+                    <h2>🎨 Theme Customization</h2>
+                    <ul>
+                        <li>Complete color customization</li>
+                        <li>Custom fonts and typography</li>
+                        <li>Flexible sizing and spacing</li>
+                        <li>Brand-specific styling</li>
+                    </ul>
+
+                    <h2>🔗 Embedded Mode</h2>
+                    <ul>
+                        <li>Embed directly into page layout</li>
+                        <li>No floating widget - always visible</li>
+                        <li>Perfect for dedicated chat pages</li>
+                        <li>Custom container placement</li>
+                    </ul>
+
+                    <h2>📱 Responsive Design</h2>
+                    <ul>
+                        <li>Desktop: Floating widget (400px × 600px)</li>
+                        <li>Mobile: Full-screen experience</li>
+                        <li>Tablet: Optimized layout</li>
+                        <li>Touch-friendly controls</li>
+                    </ul>
+
+                    <h2>💬 Interactive Elements</h2>
+                    <ul>
+                        <li>Welcome messages</li>
+                        <li>Starter prompts (clickable suggestions)</li>
+                        <li>Custom avatars (emoji or images)</li>
+                        <li>Typing indicators</li>
+                        <li>Scroll-to-bottom button</li>
+                    </ul>
+
+                    <h2>🔧 Advanced Configuration</h2>
+                    <ul>
+                        <li>Custom footer with branding</li>
+                        <li>Window size and positioning</li>
+                        <li>Button customization</li>
+                        <li>Session management</li>
+                        <li>Error handling</li>
+                    </ul>
+                </div>
+
+                <!-- Theme Guide Section -->
+                <div class="doc-section" id="theme">
+                    <h1>🎨 Theme Customization Guide</h1>
+                    <p>Make the chat widget match your brand perfectly with comprehensive theming options.</p>
+
+                    <h2>🎯 Basic Theme Configuration</h2>
+                    <pre><code>const chat = new N8NChatUI({
+  chatUrl: 'YOUR_WEBHOOK_URL',
+  theme: {
+    primaryColor: '#007bff',
+    secondaryColor: '#6c757d',
+    backgroundColor: '#ffffff',
+    textColor: '#333333',
+    userMessageBg: '#007bff',
+    botMessageBg: '#f8f9fa',
+    userMessageText: '#ffffff',
+    botMessageText: '#333333',
+    borderRadius: '12px',
+    fontFamily: 'Arial, sans-serif'
+  }
+});</code></pre>
+
+                    <h2>🌈 Color Options</h2>
+                    <ul>
+                        <li><code>primaryColor</code> - Main brand color</li>
+                        <li><code>secondaryColor</code> - Secondary elements</li>
+                        <li><code>backgroundColor</code> - Chat background</li>
+                        <li><code>textColor</code> - Main text color</li>
+                        <li><code>userMessageBg</code> - User message bubbles</li>
+                        <li><code>botMessageBg</code> - Bot message bubbles</li>
+                    </ul>
+
+                    <h2>🪟 Window Customization</h2>
+                    <pre><code>window: {
+  width: '400px',
+  height: '600px',
+  maxWidth: '400px',
+  maxHeight: '80vh',
+  borderRadius: '12px',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+  position: 'fixed',
+  zIndex: 9999
+}</code></pre>
+
+                    <h2>🔘 Button Styling</h2>
+                    <pre><code>button: {
+  enabled: true,
+  icon: '💬', // Custom icon
+  radius: '50%',
+  border: 'none',
+  shadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+}</code></pre>
+                </div>
+
+                <!-- Usage Methods Section -->
+                <div class="doc-section" id="usage">
+                    <h1>🔧 Usage Methods</h1>
+                    <p>Choose the integration method that best fits your needs.</p>
+
+                    <h2>📌 Method Comparison</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Auto-Init</th>
+                                <th>Manual Init</th>
+                                <th>Embedded</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Setup</strong></td>
+                                <td>Easiest</td>
+                                <td>Simple</td>
+                                <td>Custom</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Position</strong></td>
+                                <td>Fixed bottom-right</td>
+                                <td>Flexible</td>
+                                <td>Custom container</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Toggle Button</strong></td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>🚀 Auto-Initialization</h2>
+                    <p>Perfect for quick setup and floating widgets:</p>
+                    
+                    <pre><code>&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+    title: 'Support Chat'
+  };
+&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <h2>🎯 Manual Initialization</h2>
+                    <p>For custom placement and multiple instances:</p>
+                    
+                    <pre><code>&lt;div id="my-chat-container"&gt;&lt;/div&gt;
+
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const chat = new N8NChatUI({
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+    containerId: 'my-chat-container'
+  });
+  chat.init();
+&lt;/script&gt;</code></pre>
+
+                    <h2>🔗 Embedded Mode</h2>
+                    <p>For dedicated chat pages and dashboards:</p>
+                    
+                    <pre><code>const embeddedChat = new N8NChatUI({
+  chatUrl: 'YOUR_N8N_WEBHOOK_URL',
+  containerId: 'chat-container',
+  button: { enabled: false }, // No toggle button
+  window: {
+    position: 'static',
+    width: '100%',
+    height: '600px'
+  }
+});</code></pre>
+                </div>
+
+                <!-- Starter Prompts Section -->
+                <div class="doc-section" id="prompts">
+                    <h1>💬 Starter Prompts Guide</h1>
+                    <p>Help users begin conversations with clickable starter prompts.</p>
+
+                    <h2>🚀 Basic Setup</h2>
+                    <pre><code>const chat = new N8NChatUI({
+  chatUrl: 'YOUR_WEBHOOK_URL',
+  starterPrompts: [
+    'I have a question',
+    'I need help with my order',
+    'Tell me about your services',
+    'Contact support'
+  ]
+});</code></pre>
+
+                    <h2>🎨 Custom Styling</h2>
+                    <pre><code>starterPrompts: {
+  enabled: true,
+  prompts: [
+    'How can I help you today?',
+    'Tell me about pricing',
+    'I need technical support'
+  ],
+  placeholder: 'Choose a topic or type your message...'
+}</code></pre>
+
+                    <h2>✨ Features</h2>
+                    <ul>
+                        <li>Clickable prompt buttons</li>
+                        <li>Automatic hiding after first message</li>
+                        <li>Custom placeholder text</li>
+                        <li>Responsive design</li>
+                        <li>Smooth animations</li>
+                    </ul>
+
+                    <h2>🎯 Best Practices</h2>
+                    <ul>
+                        <li>Keep prompts short and clear</li>
+                        <li>Use 3-5 prompts maximum</li>
+                        <li>Focus on common user needs</li>
+                        <li>Test on mobile devices</li>
+                    </ul>
+                </div>
+
+                <!-- Single File Guide Section -->
+                <div class="doc-section" id="single">
+                    <h1>📄 Single File Guide</h1>
+                    <p>Everything you need to know about the single-file approach.</p>
+
+                    <h2>✨ Why Single File?</h2>
+                    <ul>
+                        <li><strong>Simplicity</strong> - Just one file to include</li>
+                        <li><strong>No Dependencies</strong> - Pure JavaScript, no external libraries</li>
+                        <li><strong>Easy Deployment</strong> - Copy one file and you're done</li>
+                        <li><strong>Fast Loading</strong> - Optimized and minified</li>
+                    </ul>
+
+                    <h2>📦 What's Included</h2>
+                    <p>The <code>n8n-chat.js</code> file contains:</p>
+                    <ul>
+                        <li>N8NChatClient - API communication</li>
+                        <li>N8NChatUI - Complete user interface</li>
+                        <li>CSS styles - All styling included</li>
+                        <li>Auto-initialization - Automatic setup</li>
+                    </ul>
+
+                    <h2>🚀 Quick Integration</h2>
+                    <ol>
+                        <li>Download <code>n8n-chat.js</code> or use CDN: <code>https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js</code></li>
+                        <li>Add to your HTML</li>
+                        <li>Configure your webhook URL</li>
+                        <li>Done!</li>
+                    </ol>
+
+                    <pre><code>&lt;!-- Step 1: Configure --&gt;
+&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'YOUR_N8N_WEBHOOK_URL'
+  };
+&lt;/script&gt;
+
+&lt;!-- Step 2: Include --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"&gt;&lt;/script&gt;</code></pre>
+
+                    <h2>🔧 Advanced Usage</h2>
+                    <p>Access the chat instance after auto-initialization:</p>
+                    
+                    <pre><code>// Access the global instance
+const chat = window.n8nChat;
+const client = chat.getClient();
+
+// Get session info
+console.log('Session ID:', client.getSessionId());
+console.log('History:', client.getHistory());</code></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        class DocsViewer {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.attachEventListeners();
+                this.handleUrlFragment();
+            }
+            
+            handleUrlFragment() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    this.showSection(hash);
+                }
+            }
+            
+            attachEventListeners() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const section = link.getAttribute('data-section');
+                        this.showSection(section);
+                        this.setActiveLink(link);
+                        window.history.replaceState(null, null, `#${section}`);
+                    });
+                });
+            }
+            
+            showSection(sectionId) {
+                // Hide all sections
+                document.querySelectorAll('.doc-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show target section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+                
+                // Update header
+                this.updateHeader(sectionId);
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            setActiveLink(activeLink) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
+            }
+            
+            updateHeader(sectionId) {
+                const titleEl = document.getElementById('doc-title');
+                const descEl = document.getElementById('doc-description');
+                
+                const sectionInfo = {
+                    'readme': { title: '📖 README', desc: 'Complete guide to Free Chat UI Library' },
+                    'quickstart': { title: '⚡ Quick Start', desc: 'Get up and running in minutes' },
+                    'features': { title: '🚀 Features', desc: 'Comprehensive feature overview' },
+                    'theme': { title: '🎨 Theme Guide', desc: 'Customize colors, fonts, and styling' },
+                    'usage': { title: '🔧 Usage Methods', desc: 'Different integration approaches' },
+                    'prompts': { title: '💬 Starter Prompts', desc: 'Guide users with conversation starters' },
+                    'single': { title: '📄 Single File Guide', desc: 'Everything you need in one file' }
+                };
+                
+                const info = sectionInfo[sectionId] || sectionInfo['readme'];
+                titleEl.textContent = info.title;
+                descEl.textContent = info.desc;
+            }
+        }
+        
+        // Initialize the docs viewer
+        document.addEventListener('DOMContentLoaded', () => {
+            new DocsViewer();
+        });
+    </script>
+</body>
+</html>

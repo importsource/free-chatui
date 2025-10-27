@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Recording Example - N8N Chat UI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .feature-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Voice Recording Example</h1>
+        <p class="subtitle">Record and send voice messages with social media-style bubbles</p>
+        
+        <div class="feature-list">
+            <h3>✨ Voice Recording Features</h3>
+            <ul>
+                <li><strong>One-Click Recording:</strong> Click the microphone button to start/stop recording</li>
+                <li><strong>Server Upload:</strong> Voice files are automatically uploaded to your server</li>
+                <li><strong>Social Media Style:</strong> Voice messages appear as blue bubbles with waveform animation</li>
+                <li><strong>Playback Controls:</strong> Click to play/pause voice messages</li>
+                <li><strong>Duration Display:</strong> Shows recording length in seconds</li>
+                <li><strong>N8N Integration:</strong> Voice files are included in the chat payload</li>
+                <li><strong>Mobile Support:</strong> Works on both desktop and mobile devices</li>
+            </ul>
+        </div>
+        
+        <div class="highlight">
+            <strong>🎯 How it works:</strong>
+            <ol>
+                <li>Click the microphone button to start recording</li>
+                <li>Speak your message (button turns red while recording)</li>
+                <li>Click again to stop recording</li>
+                <li>Voice message is automatically uploaded and sent</li>
+                <li>Voice appears as a playable bubble in the chat</li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>📝 Note:</strong> Voice recording requires microphone access. The browser will prompt you to allow microphone access when you first try to record.
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ Requirements:</strong> Make sure your server supports audio file uploads and returns the filename in the response. The voice files are uploaded as WebM format.
+        </div>
+        
+        <h3>🔧 Configuration</h3>
+        <div class="code-block">
+            <pre>const N8N_CHAT_CONFIG = {
+  // ... other config options ...
+  
+  voice: {
+    enabled: true,  // Enable voice recording
+    language: 'en-US',
+    continuous: false,
+    interimResults: true,
+    maxAlternatives: 1
+  },
+  
+  fileUpload: {
+    enabled: true,
+    uploadUrl: 'http://localhost:8090/nexusense/api/upload',
+    downloadUrl: 'http://localhost:8090/nexusense/api/files',
+    maxFileSize: 10 * 1024 * 1024, // 10MB
+    allowedTypes: ['audio/*', 'image/*', 'application/pdf', 'text/*'],
+    maxFiles: 5,
+    showPreview: true
+  }
+};</pre>
+        </div>
+        
+        <h3>🎨 Voice Message Styling</h3>
+        <p>The voice messages use a social media-style design with:</p>
+        <ul>
+            <li><strong>Blue bubble background</strong> (#007bff)</li>
+            <li><strong>Animated waveform</strong> that pulses while recording</li>
+            <li><strong>Play/pause button</strong> with smooth transitions</li>
+            <li><strong>Duration display</strong> showing recording length</li>
+            <li><strong>Responsive design</strong> that works on all screen sizes</li>
+        </ul>
+        
+        <h3>📱 Mobile Experience</h3>
+        <p>Voice recording works seamlessly on mobile devices with touch-friendly controls and optimized audio recording settings.</p>
+    </div>
+
+    <!-- N8N Chat Widget -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+    <script>
+        const N8N_CHAT_CONFIG = {
+            webhookUrl: 'https://your-n8n-webhook-url',
+            placeholder: 'Type a message or record voice...',
+            title: 'Voice Chat Support',
+            subtitle: 'Click the microphone to record voice messages',
+            theme: {
+                primaryColor: '#007bff',
+                secondaryColor: '#6c757d',
+                backgroundColor: '#ffffff',
+                textColor: '#333333',
+                userMessageBg: '#007bff',
+                botMessageBg: '#f8f9fa',
+                userMessageText: '#ffffff',
+                botMessageText: '#333333',
+                borderRadius: '12px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            },
+            avatars: {
+                enabled: true,
+                user: '👤',
+                bot: '🤖'
+            },
+            showTimestamp: true,
+            window: {
+                width: '400px',
+                height: '600px',
+                maxWidth: '400px',
+                maxHeight: '80vh',
+                minWidth: '300px',
+                minHeight: '400px',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                border: 'none',
+                position: 'fixed',
+                zIndex: 9999
+            },
+            voice: {
+                enabled: true,
+                language: 'en-US',
+                continuous: false,
+                interimResults: true,
+                maxAlternatives: 1
+            },
+            fileUpload: {
+                enabled: true,
+                uploadUrl: 'http://localhost:8090/nexusense/api/upload',
+                downloadUrl: 'http://localhost:8090/nexusense/api/files',
+                maxFileSize: 10 * 1024 * 1024, // 10MB
+                allowedTypes: ['audio/*', 'image/*', 'application/pdf', 'text/*'],
+                maxFiles: 5,
+                showPreview: true
+            },
+            footer: {
+                enabled: true,
+                html: '<div style="text-align: center; font-size: 11px; color: #666;">🎤 Voice messages supported • Powered by N8N Chat UI</div>',
+                background: '#f9fafb',
+                color: '#6b7280',
+                fontSize: '12px',
+                padding: '12px 16px',
+                borderTop: '1px solid #e5e7eb'
+            }
+        };
+
+        // Initialize the chat widget
+        const chatWidget = new N8NChatUI(N8N_CHAT_CONFIG);
+        chatWidget.init();
+    </script>
+</body>
+</html>

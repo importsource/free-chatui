@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Free Chat UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e9ecef;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 2rem 2rem 2rem;
+            border-bottom: 1px solid #e9ecef;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-header h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: 0 1rem;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .content-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .content-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .content-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .markdown-content {
+            padding: 3rem;
+            max-width: none;
+        }
+        
+        /* Markdown Styles */
+        .markdown-content h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .markdown-content h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .markdown-content h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .markdown-content h4 {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        .markdown-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .markdown-content ul,
+        .markdown-content ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        .markdown-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .markdown-content code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            color: #d63384;
+        }
+        
+        .markdown-content pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .markdown-content pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        
+        .markdown-content blockquote {
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .markdown-content th,
+        .markdown-content td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .markdown-content th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .markdown-content tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .markdown-content a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .markdown-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            color: #666;
+        }
+        
+        .loading::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e9ecef;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Error State */
+        .error {
+            padding: 2rem;
+            text-align: center;
+            color: #dc3545;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+            
+            .main-content {
+                margin: 1rem;
+            }
+            
+            .markdown-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .content-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 Documentation</h2>
+                <p>Free Chat UI Library</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-file="README.md">📖 README</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="QUICK_START.md">⚡ Quick Start</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="FEATURES.md">🚀 Features</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="THEME_GUIDE.md">🎨 Theme Guide</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="USAGE_METHODS.md">🔧 Usage Methods</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="STARTER_PROMPTS_GUIDE.md">💬 Starter Prompts</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-file="SINGLE_FILE_GUIDE.md">📄 Single File Guide</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="doc-title">Documentation</h1>
+                <p id="doc-description">Free Chat UI Library Documentation</p>
+            </div>
+            <div class="markdown-content" id="markdown-content">
+                <div class="loading">Loading documentation...</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        class MarkdownViewer {
+            constructor() {
+                this.currentFile = 'README.md';
+                this.init();
+            }
+            
+            init() {
+                this.attachEventListeners();
+                this.handleUrlFragment();
+                this.loadMarkdown(this.currentFile);
+            }
+            
+            handleUrlFragment() {
+                const hash = window.location.hash.substring(1);
+                if (hash && hash.endsWith('.md')) {
+                    this.currentFile = hash;
+                }
+            }
+            
+            attachEventListeners() {
+                // Navigation links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const file = link.getAttribute('data-file');
+                        this.loadMarkdown(file);
+                        this.setActiveLink(link);
+                    });
+                });
+            }
+            
+            setActiveLink(activeLink) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
+            }
+            
+            async loadMarkdown(filename) {
+                const contentDiv = document.getElementById('markdown-content');
+                const titleEl = document.getElementById('doc-title');
+                const descEl = document.getElementById('doc-description');
+                
+                // Show loading state
+                contentDiv.innerHTML = '<div class="loading">Loading documentation...</div>';
+                
+                try {
+                    const response = await fetch(filename);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${filename}`);
+                    }
+                    
+                    const markdown = await response.text();
+                    const html = marked.parse(markdown);
+                    
+                    // Update content
+                    contentDiv.innerHTML = html;
+                    
+                    // Update header based on file
+                    const fileInfo = this.getFileInfo(filename);
+                    titleEl.textContent = fileInfo.title;
+                    descEl.textContent = fileInfo.description;
+                    
+                    // Scroll to top
+                    contentDiv.scrollTop = 0;
+                    
+                    // Update current file and URL
+                    this.currentFile = filename;
+                    window.history.replaceState(null, null, `#${filename}`);
+                    
+                    // Update active navigation link
+                    this.updateActiveNavigation(filename);
+                    
+                } catch (error) {
+                    console.error('Error loading markdown:', error);
+                    contentDiv.innerHTML = `
+                        <div class="error">
+                            <h3>Error Loading Documentation</h3>
+                            <p>Failed to load ${filename}. Please make sure the file exists.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            updateActiveNavigation(filename) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-file') === filename) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            getFileInfo(filename) {
+                const fileMap = {
+                    'README.md': {
+                        title: '📖 README',
+                        description: 'Complete guide to Free Chat UI Library'
+                    },
+                    'QUICK_START.md': {
+                        title: '⚡ Quick Start',
+                        description: 'Get up and running in minutes'
+                    },
+                    'FEATURES.md': {
+                        title: '🚀 Features',
+                        description: 'Comprehensive feature overview'
+                    },
+                    'THEME_GUIDE.md': {
+                        title: '🎨 Theme Guide',
+                        description: 'Customize colors, fonts, and styling'
+                    },
+                    'USAGE_METHODS.md': {
+                        title: '🔧 Usage Methods',
+                        description: 'Different ways to integrate the chat widget'
+                    },
+                    'STARTER_PROMPTS_GUIDE.md': {
+                        title: '💬 Starter Prompts',
+                        description: 'Guide users with helpful conversation starters'
+                    },
+                    'SINGLE_FILE_GUIDE.md': {
+                        title: '📄 Single File Guide',
+                        description: 'Everything you need in one file'
+                    }
+                };
+                
+                return fileMap[filename] || {
+                    title: filename,
+                    description: 'Documentation'
+                };
+            }
+        }
+        
+        // Initialize the markdown viewer
+        document.addEventListener('DOMContentLoaded', () => {
+            new MarkdownViewer();
+        });
+    </script>
+</body>
+</html>

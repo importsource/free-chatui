@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Toggle Button Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      color: #764ba2;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .feature-list {
+      background: #f7f8fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .feature-list li {
+      margin: 10px 0;
+      color: #555;
+    }
+    
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+    
+    .example-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>💬 N8N Chat with Toggle Button</h1>
+    
+    <p>This example shows the chat with a toggle button. Look at the <strong>bottom right corner</strong> - you'll see a floating button!</p>
+    
+    <div class="example-box">
+      <strong>Try it:</strong> Click the button in the bottom right to open the chat. Close it using the X button in the header.
+    </div>
+    
+    <h2>Features</h2>
+    <div class="feature-list">
+      <ul>
+        <li>✅ <strong>Toggle Button</strong> - Click to show/hide chat</li>
+        <li>✅ <strong>Smooth Animations</strong> - Slide in/out effects</li>
+        <li>✅ <strong>Customizable Button</strong> - Adjust icon, radius, border, shadow</li>
+        <li>✅ <strong>Auto-hidden</strong> - Chat starts hidden with button visible</li>
+        <li>✅ <strong>Close Button</strong> - X button in chat header</li>
+      </ul>
+    </div>
+    
+    <h2>Button Customization Options</h2>
+    <p>You can customize the button with these options:</p>
+    <ul>
+      <li><code>button.enabled</code> - Enable/disable button (default: true)</li>
+      <li><code>button.icon</code> - Custom HTML/SVG icon</li>
+      <li><code>button.radius</code> - Border radius (default: '50%' for circle)</li>
+      <li><code>button.border</code> - Border style (default: 'none')</li>
+      <li><code>button.shadow</code> - Box shadow (default: '0 4px 12px rgba(0,0,0,0.15)')</li>
+      <li><code>button.background</code> - Background gradient or color</li>
+    </ul>
+    
+    <h2>Code for This Example</h2>
+    <p>Here's how this page is configured:</p>
+    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; overflow-x: auto;">
+&lt;script&gt;
+  window.N8N_CHAT_CONFIG = {
+    chatUrl: 'https://your-n8n-webhook-url',
+    title: 'Support Chat',
+    placeholder: 'How can we help you?',
+    button: {
+      enabled: true,  // Show toggle button
+      radius: '50%',  // Circular button
+      shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+    }
+  };
+&lt;/script&gt;
+&lt;script src="n8n-chat-client.js"&gt;&lt;/script&gt;
+&lt;script src="n8n-chat-ui.js"&gt;&lt;/script&gt;
+</pre>
+
+    <h2>Custom Icon Example</h2>
+    <p>Want a custom icon? Just provide SVG or HTML:</p>
+    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; overflow-x: auto;">
+button: {
+  icon: '&lt;svg...&gt;your custom svg&lt;/svg&gt;',
+  // or use emoji
+  icon: '&lt;span style="font-size: 32px"&gt;💬&lt;/span&gt;'
+}
+</pre>
+
+    <h2>Disable Button (Always Show Chat)</h2>
+    <p>To disable the button and always show the chat:</p>
+    <pre style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px; overflow-x: auto;">
+button: {
+  enabled: false
+}
+</pre>
+  </div>
+
+  <!-- Configure chat with toggle button -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      placeholder: 'How can we help you?',
+      button: {
+        enabled: true,
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

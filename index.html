@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Chat UI - Modern Chat Widget for N8N</title>
+    <meta name="description" content="Free, customizable chat widget for N8N workflows. Features voice recording, file uploads, responsive design, and easy integration.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.9) 0%, 
+                rgba(102, 126, 234, 0.7) 25%,
+                rgba(102, 126, 234, 0.8) 50%,
+                rgba(102, 126, 234, 0.6) 75%,
+                rgba(102, 126, 234, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2)) 
+                    drop-shadow(0 0 10px rgba(102, 126, 234, 0.3))
+                    drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+        
+        .logo::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.1) 0%, 
+                rgba(102, 126, 234, 0.3) 50%,
+                rgba(102, 126, 234, 0.1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: blur(0.3px);
+            z-index: -1;
+        }
+        
+        .logo:hover {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) 
+                    drop-shadow(0 0 15px rgba(102, 126, 234, 0.5))
+                    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8));
+            transform: translateY(-1px);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .nav-links a[href="docs.html"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a[href="docs.html"]:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0 6rem 0;
+            color: white;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="1"/></g></svg>');
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 70vh;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            text-align: left;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 25%,
+                rgba(255, 255, 255, 0.8) 50%,
+                rgba(255, 255, 255, 0.6) 75%,
+                rgba(255, 255, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) 
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))
+                    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8));
+        }
+        
+        .hero h1::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: blur(0.5px);
+            z-index: -1;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .hero-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .showcase-image {
+            position: relative;
+            max-width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .showcase-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .showcase-image:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 35px 100px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+        
+        .showcase-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .showcase-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse-badge 2s infinite;
+        }
+        
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        /* Hero Code Block */
+        .hero-code-block {
+            margin-top: 2.5rem;
+            max-width: 500px;
+        }
+        
+        .code-block-mini {
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-block-mini::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        .code-block-mini pre {
+            margin: 0;
+            padding: 1rem 1.2rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #e2e8f0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+        }
+        
+        .copy-btn-mini {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            border: none;
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+        }
+        
+        .copy-btn-mini:hover {
+            background: rgba(102, 126, 234, 1);
+            opacity: 1;
+            transform: translateY(-1px);
+        }
+        
+        .copy-btn-mini .copy-icon {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+        
+        .copy-btn-mini.copied {
+            background: rgba(34, 197, 94, 0.8);
+        }
+        
+        .copy-btn-mini.copied:hover {
+            background: rgba(34, 197, 94, 1);
+        }
+        
+        .code-caption {
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        /* Why We Built This Section */
+        .why-section {
+            background: white;
+            padding: 5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .why-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        
+        .why-text h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .why-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        .comparison-points {
+            margin-bottom: 3rem;
+        }
+        
+        .point {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .point-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .point-text strong {
+            color: #667eea;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        
+        .point-text p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .solution-text {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .solution-text h3 {
+            color: #0369a1;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .solution-text p {
+            color: #374151;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .old-widget,
+        .new-widget {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .old-widget {
+            max-width: 400px;
+        }
+        
+        .new-widget {
+            max-width: 400px;
+        }
+        
+        .old-widget:hover,
+        .new-widget:hover {
+            transform: scale(1.02);
+        }
+        
+        .old-widget img,
+        .new-widget img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .widget-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .old-label {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+        }
+        
+        .new-label {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .vs-divider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin: 1rem 0;
+        }
+        
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .features-showcase {
+            margin-top: 3rem;
+        }
+        
+        .feature-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+            padding: 3rem 0;
+        }
+        
+        .feature-item.reverse {
+            direction: rtl;
+        }
+        
+        .feature-item.reverse .feature-content,
+        .feature-item.reverse .feature-image {
+            direction: ltr;
+        }
+        
+        .feature-content {
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-item h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .feature-item p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .feature-link:hover {
+            color: #5a6fd8;
+            transform: translateX(5px);
+        }
+        
+        .feature-image {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-image:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        /* Additional Features Section */
+        .additional-features {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .additional-features h3 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .mini-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .mini-feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e9ecef;
+        }
+        
+        .mini-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mini-feature img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mini-feature h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .mini-feature p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Demo Section */
+        .demo {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 5rem 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .demo-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .demo-preview {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .demo-preview-image {
+            position: relative;
+            max-width: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .demo-preview-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .demo-preview-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .demo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .demo-preview-image:hover .demo-overlay {
+            opacity: 1;
+        }
+        
+        .demo-play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+        
+        .demo-play-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        /* Quick Start Section */
+        .quick-start {
+            background: white;
+            padding: 5rem 0;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .code-block {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .code-block::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 
+                20px 0 0 #ffbd2e,
+                40px 0 0 #27ca3f;
+        }
+        
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.8);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(102, 126, 234, 1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .copy-btn.copied {
+            background: rgba(34, 197, 94, 0.8);
+            color: white;
+        }
+        
+        .copy-btn.copied:hover {
+            background: rgba(34, 197, 94, 1);
+        }
+        
+        .copy-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+        
+        /* Syntax Highlighting */
+        .code-comment {
+            color: #7dd3fc;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .code-tag {
+            color: #f472b6;
+            font-weight: 600;
+        }
+        
+        .code-attribute {
+            color: #fbbf24;
+            font-weight: 500;
+        }
+        
+        .code-string {
+            color: #34d399;
+            font-weight: 500;
+        }
+        
+        .code-property {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+        
+        .code-key {
+            color: #60a5fa;
+            font-weight: 500;
+        }
+        
+        .code-value {
+            color: #fb7185;
+            font-weight: 600;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            padding-top: 2rem;
+        }
+        
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Examples Section */
+        .examples {
+            background: #f8f9fa;
+            padding: 5rem 0;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .example-card h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .example-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .example-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .example-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .footer-section a {
+            color: #a0aec0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                min-height: auto;
+                text-align: center;
+            }
+            
+            .hero-text {
+                text-align: center;
+                order: 2;
+            }
+            
+            .hero-showcase {
+                order: 1;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .demo-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            /* Feature items stack on mobile */
+            .feature-item {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-bottom: 3rem;
+                padding: 2rem 0;
+            }
+            
+            .feature-item.reverse {
+                direction: ltr;
+            }
+            
+            .feature-item.reverse .feature-image {
+                order: -1;
+            }
+            
+            .feature-content {
+                padding: 1rem;
+                text-align: center;
+            }
+            
+            .feature-item h3 {
+                font-size: 1.5rem;
+            }
+            
+            .feature-item p {
+                font-size: 1rem;
+            }
+            
+            .mini-features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .mini-feature {
+                padding: 1rem;
+            }
+            
+            /* Why section responsive */
+            .why-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .why-text h2 {
+                font-size: 2rem;
+            }
+            
+            .comparison-container {
+                gap: 1.5rem;
+            }
+            
+            .hero-code-block {
+                margin-top: 2rem;
+                max-width: 100%;
+            }
+            
+            .code-block-mini pre {
+                font-size: 0.8rem;
+                padding: 0.8rem 1rem;
+            }
+            
+            .copy-btn-mini {
+                top: 6px;
+                right: 6px;
+                padding: 4px 6px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .feature-item {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .feature-content {
+                padding: 0.5rem;
+            }
+            
+            .mini-features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .why-text h2 {
+                font-size: 1.8rem;
+            }
+            
+            .point {
+                padding: 0.75rem;
+            }
+            
+            .solution-text {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo" data-text="💬 Free Chat UI">💬 Free Chat UI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#quick-start">Quick Start</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="docs.html">📚 Docs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="fade-in" data-text="Free Chat UI">Free Chat UI</h1>
+                    <p class="fade-in">Modern, customizable chat widget for N8N workflows</p>
+                    <div class="cta-buttons fade-in">
+                        <a href="#quick-start" class="btn btn-primary">Get Started</a>
+                        <a href="#demo" class="btn btn-secondary">View Demo</a>
+                    </div>
+                    
+                    <!-- Quick Start Code Block -->
+                    <div class="hero-code-block fade-in">
+                        <div class="code-block-mini">
+                            <button class="copy-btn-mini" onclick="copyCode(this)">
+                                <svg class="copy-icon" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+<pre><span class="code-tag">&lt;script</span> <span class="code-attribute">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"</span><span class="code-tag">&gt;&lt;/script&gt;</span>
+<span class="code-tag">&lt;script&gt;</span>
+<span class="code-property">new</span> <span class="code-key">N8NChatUI</span>({
+  <span class="code-key">chatUrl</span>: <span class="code-string">'your-webhook-url'</span>
+}).<span class="code-property">init</span>();
+<span class="code-tag">&lt;/script&gt;</span></pre>
+                        </div>
+                        <p class="code-caption">Just 5 lines to get started! 🚀</p>
+                    </div>
+                </div>
+                <div class="hero-showcase fade-in">
+                    <div class="showcase-image">
+                        <img src="images/whole-box-showcase.png" alt="Free Chat UI Complete Overview" loading="eager">
+                        <div class="showcase-badge">
+                            <span>✨ All Features</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why We Built This Section -->
+    <section class="why-section">
+        <div class="container">
+            <div class="why-content">
+                <div class="why-text">
+                    <h2>🤔 Why We Built This</h2>
+                    <p class="why-subtitle">N8N's chat widget is a great foundation, but we wanted to take it to the next level with modern features and enhanced user experience.</p>
+                    
+                    <div class="comparison-points">
+                        <div class="point">
+                            <span class="point-icon">🔧</span>
+                            <div class="point-text">
+                                <strong>Room for More Customization</strong>
+                                <p>We wanted deeper theming options to perfectly match any brand</p>
+                            </div>
+                        </div>
+                        <div class="point">
+                            <span class="point-icon">✨</span>
+                            <div class="point-text">
+                                <strong>Modern Feature Opportunities</strong>
+                                <p>We saw potential for voice recording, file uploads, and enhanced UX</p>
+                            </div>
+                        </div>
+                        <div class="point">
+                            <span class="point-icon">📱</span>
+                            <div class="point-text">
+                                <strong>Mobile-First Enhancement</strong>
+                                <p>We wanted to optimize further for mobile devices and touch interactions</p>
+                            </div>
+                        </div>
+                        <div class="point">
+                            <span class="point-icon">⚡</span>
+                            <div class="point-text">
+                                <strong>Simplified Integration</strong>
+                                <p>We aimed for even easier setup with single-file deployment</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-text">
+                        <h3>✨ Our Enhancement</h3>
+                        <p>We created <strong>Free Chat UI</strong> - building upon N8N's solid foundation with modern features, enhanced customization, and an improved user experience that developers and users will love!</p>
+                    </div>
+                </div>
+                
+                <div class="why-image">
+                    <div class="comparison-container">
+                        <div class="old-widget">
+                            <img src="images/n8n-chat.png" alt="Original N8N Chat Widget" loading="lazy">
+                            <div class="widget-label old-label">
+                                <span>🔧 N8N Original</span>
+                            </div>
+                        </div>
+                        <div class="vs-divider">
+                            <span>Enhanced</span>
+                        </div>
+                        <div class="new-widget">
+                            <img src="images/whole-box-showcase.png" alt="Free Chat UI Widget" loading="lazy">
+                            <div class="widget-label new-label">
+                                <span>✨ Free Chat UI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">🚀 Powerful Features</h2>
+            <div class="features-showcase">
+                <div class="feature-item fade-in">
+                    <div class="feature-content">
+                        <div class="feature-icon">🎤</div>
+                        <h3>Voice Recording</h3>
+                        <p>Record and send voice messages with social media-style bubbles. Includes playback controls and waveform animations.</p>
+                        <a href="voice-recording-example.html" class="feature-link">Try Voice Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/voice-demo.png" alt="Voice Recording Demo" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in reverse">
+                    <div class="feature-content">
+                        <div class="feature-icon">📁</div>
+                        <h3>File Upload</h3>
+                        <p>Upload images, documents, and files with drag-and-drop support. Images show previews, other files display as download links.</p>
+                        <a href="file-upload-example.html" class="feature-link">Try Upload Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/file-upload-demo.png" alt="File Upload Demo" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-content">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Customizable Theme</h3>
+                        <p>Fully customizable colors, fonts, sizes, and styling. Match your brand with custom themes and configurations.</p>
+                        <a href="theme-example.html" class="feature-link">Try Theme Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/theme-demo.png" alt="Theme Customization Demo" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in reverse">
+                    <div class="feature-content">
+                        <div class="feature-icon">🔗</div>
+                        <h3>Embedded Mode</h3>
+                        <p>Embed chat directly into your page layout instead of floating widget. Perfect for dedicated chat pages and dashboards.</p>
+                        <a href="embedded-mode-example.html" class="feature-link">Try Embedded Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/embedded-demo.png" alt="Embedded Mode Demo" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-content">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Starter Prompts</h3>
+                        <p>Clickable starter prompts to help users begin conversations. Fully customizable with your own prompts and styling.</p>
+                        <a href="starter-prompts-example.html" class="feature-link">Try Prompts Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/starter-prompts-demo.png" alt="Starter Prompts Demo" loading="lazy">
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in reverse">
+                    <div class="feature-content">
+                        <div class="feature-icon">💬</div>
+                        <h3>Welcome Messages</h3>
+                        <p>Greet users with custom welcome messages. Perfect for setting context and guiding user interactions.</p>
+                        <a href="welcome-message-example.html" class="feature-link">Try Welcome Demo →</a>
+                    </div>
+                    <div class="feature-image">
+                        <img src="images/welcome-message-demo.png" alt="Welcome Message Demo" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Features Grid -->
+            <div class="additional-features">
+                <h3>More Customization Options</h3>
+                <div class="mini-features-grid">
+                    <div class="mini-feature fade-in">
+                        <img src="images/customize-avatar.png" alt="Avatar Customization" loading="lazy">
+                        <h4>Custom Avatars</h4>
+                        <p>Personalize user and bot avatars</p>
+                    </div>
+                    <div class="mini-feature fade-in">
+                        <img src="images/customize-footer-demo.png" alt="Footer Customization" loading="lazy">
+                        <h4>Custom Footer</h4>
+                        <p>Add branding and copyright info</p>
+                    </div>
+                    <div class="mini-feature fade-in">
+                        <img src="images/customize-icon-demo.png" alt="Icon Customization" loading="lazy">
+                        <h4>Custom Icons</h4>
+                        <p>Brand your chat button and UI</p>
+                    </div>
+                    <div class="mini-feature fade-in">
+                        <img src="images/tips-demo.png" alt="Tips Demo" loading="lazy">
+                        <h4>Interactive Tips</h4>
+                        <p>Guide users with helpful tips</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="demo-content">
+                <h2 class="section-title">🎯 Try It Live</h2>
+                <p>Experience the chat widget in action. Click the chat button in the bottom-right corner to see all features!</p>
+                
+                <!-- Demo Preview -->
+                <div class="demo-preview">
+                    <div class="demo-preview-image">
+                        <img src="images/customize-input-demo.png" alt="Chat Widget Demo" loading="lazy">
+                        <div class="demo-overlay">
+                            <div class="demo-play-btn">
+                                <span>▶</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-buttons">
+                    <a href="simple-example.html" class="btn btn-primary">Basic Example</a>
+                    <a href="embedded-mode-example.html" class="btn btn-secondary">Embedded Mode</a>
+                    <a href="complete-example.html" class="btn btn-secondary">Complete Example</a>
+                    <a href="voice-recording-example.html" class="btn btn-secondary">Voice Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="quick-start" class="quick-start">
+        <div class="container">
+            <h2 class="section-title">⚡ Quick Start</h2>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Include the Script</h3>
+                    <p>Add the chat widget script to your HTML page</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Configure</h3>
+                    <p>Set up your N8N webhook URL and customize the appearance</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Initialize</h3>
+                    <p>Start the chat widget with one line of code</p>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">
+                    <svg class="copy-icon" viewBox="0 0 24 24">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                    Copy
+                </button>
+<pre><span class="code-comment">&lt;!-- Include the chat widget --&gt;</span>
+<span class="code-tag">&lt;script</span> <span class="code-attribute">src</span>=<span class="code-string">"https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"</span><span class="code-tag">&gt;&lt;/script&gt;</span>
+
+<span class="code-tag">&lt;script&gt;</span>
+<span class="code-comment">// Configure the chat widget</span>
+<span class="code-property">const</span> <span class="code-key">N8N_CHAT_CONFIG</span> = {
+  <span class="code-key">webhookUrl</span>: <span class="code-string">'https://your-n8n-webhook-url'</span>,
+  <span class="code-key">placeholder</span>: <span class="code-string">'Type a message...'</span>,
+  <span class="code-key">title</span>: <span class="code-string">'Chat Support'</span>,
+  <span class="code-key">theme</span>: {
+    <span class="code-key">primaryColor</span>: <span class="code-string">'#007bff'</span>,
+    <span class="code-key">backgroundColor</span>: <span class="code-string">'#ffffff'</span>
+  },
+  <span class="code-key">voice</span>: {
+    <span class="code-key">enabled</span>: <span class="code-value">true</span>
+  },
+  <span class="code-key">fileUpload</span>: {
+    <span class="code-key">enabled</span>: <span class="code-value">true</span>,
+    <span class="code-key">uploadUrl</span>: <span class="code-string">'https://your-upload-endpoint'</span>,
+    <span class="code-key">downloadUrl</span>: <span class="code-string">'https://your-download-endpoint'</span>
+  }
+};
+
+<span class="code-comment">// Initialize the chat widget</span>
+<span class="code-property">const</span> <span class="code-key">chatWidget</span> = <span class="code-property">new</span> <span class="code-key">N8NChatUI</span>(<span class="code-key">N8N_CHAT_CONFIG</span>);
+<span class="code-key">chatWidget</span>.<span class="code-property">init</span>();
+<span class="code-tag">&lt;/script&gt;</span></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section id="examples" class="examples">
+        <div class="container">
+            <h2 class="section-title">📚 Examples & Documentation</h2>
+            <div class="examples-grid">
+                <div class="example-card fade-in">
+                    <h4>🎯 Basic Integration</h4>
+                    <p>Simple chat widget with basic configuration and N8N webhook integration.</p>
+                    <a href="simple-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>🎨 Theme Customization</h4>
+                    <p>Customize colors, fonts, and styling to match your brand identity.</p>
+                    <a href="theme-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>🎤 Voice Recording</h4>
+                    <p>Record and send voice messages with social media-style playback controls.</p>
+                    <a href="voice-recording-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>📁 File Upload</h4>
+                    <p>Upload files with drag-and-drop support and server integration.</p>
+                    <a href="file-upload-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>🪟 Window Customization</h4>
+                    <p>Customize chat window size, position, and appearance settings.</p>
+                    <a href="window-customization-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>🔗 Embedded Mode</h4>
+                    <p>Embed chat directly into your page layout instead of floating widget.</p>
+                    <a href="embedded-mode-example.html" class="example-link">View Example →</a>
+                </div>
+                
+                <div class="example-card fade-in">
+                    <h4>🚀 Complete Features</h4>
+                    <p>Full-featured example with all capabilities enabled and configured.</p>
+                    <a href="complete-example.html" class="example-link">View Example →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <a href="#features">Voice Recording</a>
+                    <a href="#features">File Upload</a>
+                    <a href="#features">Responsive Design</a>
+                    <a href="#features">Customization</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Examples</h4>
+                    <a href="simple-example.html">Basic Example</a>
+                    <a href="complete-example.html">Complete Example</a>
+                    <a href="voice-recording-example.html">Voice Demo</a>
+                    <a href="file-upload-example.html">File Upload</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <a href="docs.html">📖 Full Documentation</a>
+                    <a href="docs.html#quickstart">⚡ Quick Start</a>
+                    <a href="docs.html#theme">🎨 Theme Guide</a>
+                    <a href="docs.html#features">🚀 Features</a>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid #4a5568; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2024 Free Chat UI. Open source chat widget for N8N workflows.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Chat Widget for Demo -->
+    <script src="n8n-chat.js"></script>
+    <script>
+        // Demo configuration for the landing page
+        const DEMO_CHAT_CONFIG = {
+            webhookUrl: 'https://your-n8n-webhook-url',
+            placeholder: 'Try the voice recording and file upload features!',
+            title: 'Free Chat UI Demo',
+            subtitle: 'Experience all the features',
+            theme: {
+                primaryColor: '#667eea',
+                secondaryColor: '#764ba2',
+                backgroundColor: '#ffffff',
+                textColor: '#333333',
+                userMessageBg: '#667eea',
+                botMessageBg: '#f8f9fa',
+                userMessageText: '#ffffff',
+                botMessageText: '#333333',
+                borderRadius: '12px',
+                fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            },
+            avatars: {
+                enabled: true,
+                user: '👤',
+                bot: '🤖'
+            },
+            showTimestamp: true,
+            window: {
+                width: '400px',
+                height: '600px',
+                maxWidth: '400px',
+                maxHeight: '80vh',
+                minWidth: '300px',
+                minHeight: '400px',
+                borderRadius: '12px',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+                border: 'none',
+                position: 'fixed',
+                zIndex: 9999
+            },
+            voice: {
+                enabled: true,
+                language: 'en-US',
+                continuous: false,
+                interimResults: true,
+                maxAlternatives: 1
+            },
+            fileUpload: {
+                enabled: true,
+                uploadUrl: 'http://localhost:8090/nexusense/api/upload',
+                downloadUrl: 'http://localhost:8090/nexusense/api/files',
+                maxFileSize: 10 * 1024 * 1024, // 10MB
+                allowedTypes: ['audio/*', 'image/*', 'application/pdf', 'text/*'],
+                maxFiles: 5,
+                showPreview: true
+            },
+            footer: {
+                enabled: true,
+                html: '<div style="text-align: center; font-size: 11px; color: #666;">🚀 Free Chat UI • Voice & File Upload • Powered by N8N</div>',
+                background: '#f9fafb',
+                color: '#6b7280',
+                fontSize: '12px',
+                padding: '12px 16px',
+                borderTop: '1px solid #e5e7eb'
+            }
+        };
+
+        // Initialize the demo chat widget
+        const demoChatWidget = new N8NChatUI(DEMO_CHAT_CONFIG);
+        demoChatWidget.init();
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const preElement = codeBlock.querySelector('pre');
+            
+            // Get the text content without HTML tags
+            const codeText = preElement.textContent || preElement.innerText;
+            
+            // Use the modern Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(codeText).then(() => {
+                    showCopySuccess(button);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    fallbackCopyTextToClipboard(codeText, button);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(codeText, button);
+            }
+        }
+        
+        // Fallback copy method for older browsers
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess(button);
+                } else {
+                    console.error('Fallback: Copying text command was unsuccessful');
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // Show copy success feedback
+        function showCopySuccess(button) {
+            const originalHTML = button.innerHTML;
+            
+            // Change button appearance
+            button.classList.add('copied');
+            button.innerHTML = `
+                <svg class="copy-icon" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Copied!
+            `;
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                button.classList.remove('copied');
+                button.innerHTML = originalHTML;
+            }, 2000);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation to elements as they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and steps
+        document.querySelectorAll('.feature-card, .step, .example-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

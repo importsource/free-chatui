@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Window Customization - N8N Chat Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content {
+      max-width: 900px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    
+    .note strong {
+      color: #667eea;
+    }
+
+    .code-example {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .code-example pre {
+      margin: 0;
+    }
+
+    .demo-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .demo-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .demo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .demo-button:active {
+      transform: translateY(0);
+    }
+
+    .demo-button.secondary {
+      background: #6b7280;
+      box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+    }
+
+    .demo-button.secondary:hover {
+      box-shadow: 0 6px 16px rgba(107, 114, 128, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>🪟 Window Customization</h1>
+    <p>This example demonstrates the new window customization feature:</p>
+    
+    <ul class="feature-list">
+      <li><strong>Size Control:</strong> Customize width, height, min/max dimensions</li>
+      <li><strong>Visual Styling:</strong> Border radius, box shadow, border styles</li>
+      <li><strong>Positioning:</strong> Fixed, absolute, or relative positioning</li>
+      <li><strong>Z-Index Control:</strong> Layer management for complex layouts</li>
+      <li><strong>Responsive:</strong> Mobile overrides for optimal mobile experience</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Try it:</strong> Click the chat button to see the default window, then try the different window styles below!
+      <div class="demo-buttons">
+        <button class="demo-button" id="default-window">Default Window</button>
+        <button class="demo-button" id="large-window">Large Window</button>
+        <button class="demo-button" id="small-window">Small Window</button>
+        <button class="demo-button" id="rounded-window">Rounded Window</button>
+        <button class="demo-button" id="shadow-window">Heavy Shadow</button>
+        <button class="demo-button secondary" id="close-chat">Close Chat</button>
+      </div>
+    </div>
+
+    <div class="code-example">
+      <strong>Example Configuration:</strong>
+      <pre>
+window: {
+  width: '500px',           // Default: '400px'
+  height: '700px',          // Default: '600px'
+  maxWidth: '600px',        // Default: '400px'
+  maxHeight: '90vh',        // Default: '80vh'
+  minWidth: '350px',        // Default: '300px'
+  minHeight: '500px',       // Default: '400px'
+  borderRadius: '20px',     // Default: '12px'
+  boxShadow: '0 8px 32px rgba(0,0,0,0.3)', // Custom shadow
+  border: '2px solid #667eea', // Custom border
+  position: 'fixed',        // Default: 'fixed'
+  zIndex: 10000            // Default: 9999
+}
+      </pre>
+    </div>
+
+    <div class="note">
+      <strong>Use Cases:</strong><br>
+      • <strong>Large Chat:</strong> Increase width/height for more content<br>
+      • <strong>Compact Chat:</strong> Smaller dimensions for sidebar integration<br>
+      • <strong>Custom Styling:</strong> Match your brand with custom borders/shadows<br>
+      • <strong>Layout Integration:</strong> Use absolute/relative positioning for embedded layouts
+    </div>
+  </div>
+
+  <!-- Include the N8N Chat Widget library -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+
+  <!-- Initialize the chat widget -->
+  <script>
+    let chat = null;
+
+    // Default window configuration
+    const defaultWindowConfig = {
+      width: '400px',
+      height: '600px',
+      maxWidth: '400px',
+      maxHeight: '80vh',
+      minWidth: '300px',
+      minHeight: '400px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+      border: 'none',
+      position: 'fixed',
+      zIndex: 9999
+    };
+
+    // Different window configurations for demo
+    const windowConfigs = {
+      default: defaultWindowConfig,
+      large: {
+        width: '600px',
+        height: '800px',
+        maxWidth: '700px',
+        maxHeight: '90vh',
+        minWidth: '500px',
+        minHeight: '600px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+        border: 'none',
+        position: 'fixed',
+        zIndex: 9999
+      },
+      small: {
+        width: '300px',
+        height: '400px',
+        maxWidth: '350px',
+        maxHeight: '70vh',
+        minWidth: '250px',
+        minHeight: '300px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+        border: 'none',
+        position: 'fixed',
+        zIndex: 9999
+      },
+      rounded: {
+        width: '400px',
+        height: '600px',
+        maxWidth: '400px',
+        maxHeight: '80vh',
+        minWidth: '300px',
+        minHeight: '400px',
+        borderRadius: '25px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+        border: 'none',
+        position: 'fixed',
+        zIndex: 9999
+      },
+      shadow: {
+        width: '400px',
+        height: '600px',
+        maxWidth: '400px',
+        maxHeight: '80vh',
+        minWidth: '300px',
+        minHeight: '400px',
+        borderRadius: '12px',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
+        border: 'none',
+        position: 'fixed',
+        zIndex: 9999
+      }
+    };
+
+    function createChat(windowConfig = defaultWindowConfig) {
+      // Remove existing chat if any
+      if (chat) {
+        const existingContainer = document.getElementById('n8n-chat-container');
+        if (existingContainer) {
+          existingContainer.remove();
+        }
+      }
+
+      // Create new chat with window configuration
+      chat = new N8NChatUI({
+        chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+        title: 'Custom Window Chat',
+        titleIcon: '🪟',
+        welcomeMessage: 'Hello! This chat window has been customized! Notice the different size and styling options. 🎨',
+        placeholder: 'Type your message...',
+        showTimestamp: true,
+        
+        // Starter prompts
+        starterPrompts: [
+          'Tell me about window customization',
+          'What can I customize?',
+          'How does it work?'
+        ],
+        
+        // Theme customization
+        theme: {
+          primaryColor: '#667eea',
+          secondaryColor: '#764ba2',
+          chatBg: '#f7f8fc',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        },
+        
+        // Button configuration
+        button: {
+          enabled: true,
+          radius: '50%',
+          shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+        },
+        
+        // Tip configuration
+        tip: {
+          enabled: true,
+          text: 'Try different window styles! 🪟',
+          delay: 2000
+        },
+        
+        // Avatar configuration
+        avatars: {
+          enabled: true,
+          bot: '🤖',
+          user: '👤'
+        },
+
+        // Footer configuration
+        footer: {
+          enabled: true,
+          html: '© 2024 Your Company',
+          background: '#f9fafb',
+          color: '#6b7280',
+          fontSize: '12px'
+        },
+
+        // Window configuration - NEW FEATURE!
+        window: windowConfig
+      });
+
+      // Initialize the chat
+      chat.init();
+
+      // Mock response handler for demo purposes
+      const originalSendMessage = chat.client.sendMessage.bind(chat.client);
+      chat.client.sendMessage = async function(message, metadata) {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Create mock response based on the message
+        let response = '';
+        
+        if (message.toLowerCase().includes('window') || message.toLowerCase().includes('customize')) {
+          response = 'Window customization lets you control the chat window\'s size, appearance, and positioning! You can set custom width/height, border radius, shadows, borders, and even the z-index for layering. Perfect for integrating the chat into your specific layout! 🪟';
+        } else if (message.toLowerCase().includes('size')) {
+          response = 'You can control the window size with width, height, maxWidth, maxHeight, minWidth, and minHeight properties. This gives you complete control over the chat window dimensions for different use cases! 📏';
+        } else if (message.toLowerCase().includes('style')) {
+          response = 'Styling options include border radius for rounded corners, custom box shadows for depth, border styles for outlines, and z-index for layering. You can make the chat window match your brand perfectly! 🎨';
+        } else {
+          response = 'Great question! The window customization feature gives you complete control over the chat window appearance and behavior. Try asking about specific customization options or how to integrate it into different layouts! 🪟';
+        }
+        
+        // Simulate the response format
+        const mockResponse = {
+          message: response,
+          timestamp: new Date().toISOString()
+        };
+        
+        // Trigger the onMessage callback
+        if (this.onMessage) {
+          this.onMessage(mockResponse);
+        }
+        
+        // Update conversation history
+        this.conversationHistory.push({
+          role: 'user',
+          message: message.trim(),
+          timestamp: new Date().toISOString()
+        });
+        
+        this.conversationHistory.push({
+          role: 'assistant',
+          message: response,
+          timestamp: new Date().toISOString(),
+          rawData: mockResponse
+        });
+        
+        return mockResponse;
+      };
+    }
+
+    // Initialize with default window
+    createChat();
+
+    // Demo button handlers
+    document.getElementById('default-window').addEventListener('click', () => {
+      createChat(windowConfigs.default);
+    });
+
+    document.getElementById('large-window').addEventListener('click', () => {
+      createChat(windowConfigs.large);
+    });
+
+    document.getElementById('small-window').addEventListener('click', () => {
+      createChat(windowConfigs.small);
+    });
+
+    document.getElementById('rounded-window').addEventListener('click', () => {
+      createChat(windowConfigs.rounded);
+    });
+
+    document.getElementById('shadow-window').addEventListener('click', () => {
+      createChat(windowConfigs.shadow);
+    });
+
+    document.getElementById('close-chat').addEventListener('click', () => {
+      if (chat) {
+        chat.closeChat();
+      }
+    });
+  </script>
+</body>
+</html>
+

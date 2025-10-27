@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Input - N8N Chat Widget</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content {
+      max-width: 800px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-top: 0;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+    }
+    
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+    
+    .note strong {
+      color: #667eea;
+    }
+
+    .code-example {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    .code-example pre {
+      margin: 0;
+    }
+
+    .warning {
+      background: #fef3cd;
+      border-left: 4px solid #f59e0b;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+
+    .warning strong {
+      color: #d97706;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>🎤 Voice Input Support</h1>
+    <p>This example demonstrates the new voice input feature:</p>
+    
+    <ul class="feature-list">
+      <li><strong>Speech Recognition:</strong> Click the microphone button to speak your message</li>
+      <li><strong>Real-time Transcription:</strong> See your speech converted to text in real-time</li>
+      <li><strong>Visual Feedback:</strong> Button changes color and pulses when recording</li>
+      <li><strong>Error Handling:</strong> Clear error messages for common issues</li>
+      <li><strong>Browser Support:</strong> Works with Chrome, Edge, Safari (with limitations)</li>
+      <li><strong>Language Support:</strong> Configurable language recognition</li>
+    </ul>
+    
+    <div class="note">
+      <strong>Try it:</strong> Click the chat button to open the chat, then click the microphone button (🎤) next to the input field to start voice input. Speak your message and watch it appear as text!
+    </div>
+
+    <div class="warning">
+      <strong>Browser Requirements:</strong><br>
+      • Voice input works best in Chrome and Edge browsers<br>
+      • Safari has limited support<br>
+      • Firefox does not support Web Speech API<br>
+      • Requires HTTPS connection for microphone access
+    </div>
+
+    <div class="code-example">
+      <strong>Example Configuration:</strong>
+      <pre>
+voice: {
+  enabled: true,              // Enable voice input
+  language: 'en-US',         // Speech recognition language
+  continuous: false,         // Continuous recognition
+  interimResults: true,      // Show interim results
+  maxAlternatives: 1         // Number of alternatives
+}
+      </pre>
+    </div>
+
+    <div class="note">
+      <strong>Supported Languages:</strong><br>
+      • English: 'en-US', 'en-GB', 'en-AU'<br>
+      • Spanish: 'es-ES', 'es-MX'<br>
+      • French: 'fr-FR', 'fr-CA'<br>
+      • German: 'de-DE'<br>
+      • And many more! Check browser documentation for full list.
+    </div>
+  </div>
+
+  <!-- Include the N8N Chat Widget library -->
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+
+  <!-- Initialize the chat widget -->
+  <script>
+    // Mock n8n webhook endpoint (replace with your actual endpoint)
+    const chat = new N8NChatUI({
+      chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+      title: 'Voice Chat',
+      titleIcon: '🎤',
+      welcomeMessage: 'Hello! Try the voice input feature by clicking the microphone button! 🎤',
+      placeholder: 'Type your message or use voice input...',
+      showTimestamp: true,
+      
+      // Starter prompts
+      starterPrompts: [
+        'Tell me about voice input',
+        'How does speech recognition work?',
+        'What languages are supported?'
+      ],
+      
+      // Theme customization
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      
+      // Button configuration
+      button: {
+        enabled: true,
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      },
+      
+      // Tip configuration
+      tip: {
+        enabled: true,
+        text: 'Try voice input! Click the mic button! 🎤',
+        delay: 2000
+      },
+      
+      // Avatar configuration
+      avatars: {
+        enabled: true,
+        bot: '🤖',
+        user: '👤'
+      },
+
+      // Footer configuration
+      footer: {
+        enabled: true,
+        html: '© 2024 Your Company',
+        background: '#f9fafb',
+        color: '#6b7280',
+        fontSize: '12px'
+      },
+
+      // Window configuration
+      window: {
+        width: '400px',
+        height: '600px',
+        borderRadius: '12px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)'
+      },
+
+      // Voice input configuration - NEW FEATURE!
+      voice: {
+        enabled: true,
+        language: 'en-US',
+        continuous: false,
+        interimResults: true,
+        maxAlternatives: 1
+      }
+    });
+
+    // Initialize the chat
+    chat.init();
+
+    // Mock response handler for demo purposes
+    // In real implementation, this would be handled by your n8n webhook
+    const originalSendMessage = chat.client.sendMessage.bind(chat.client);
+    chat.client.sendMessage = async function(message, metadata) {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Create mock response based on the message
+      let response = '';
+      
+      if (message.toLowerCase().includes('voice') || message.toLowerCase().includes('speech')) {
+        response = 'Voice input uses the Web Speech API to convert your spoken words into text! It supports real-time transcription, multiple languages, and provides visual feedback when recording. The feature works best in Chrome and Edge browsers. 🎤';
+      } else if (message.toLowerCase().includes('recognition')) {
+        response = 'Speech recognition converts your spoken words into text using advanced AI algorithms. It can handle different accents, languages, and even punctuation. The system learns from your speech patterns for better accuracy over time! 🗣️';
+      } else if (message.toLowerCase().includes('language')) {
+        response = 'The voice input supports many languages including English, Spanish, French, German, and more! You can configure the language in the voice settings. Each language has its own recognition model for optimal accuracy. 🌍';
+      } else {
+        response = 'Great question! Voice input makes chatting much more convenient. Just click the microphone button and start speaking - your words will appear as text automatically. Try it out! 🎤';
+      }
+      
+      // Simulate the response format
+      const mockResponse = {
+        message: response,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Trigger the onMessage callback
+      if (this.onMessage) {
+        this.onMessage(mockResponse);
+      }
+      
+      // Update conversation history
+      this.conversationHistory.push({
+        role: 'user',
+        message: message.trim(),
+        timestamp: new Date().toISOString()
+      });
+      
+      this.conversationHistory.push({
+        role: 'assistant',
+        message: response,
+        timestamp: new Date().toISOString(),
+        rawData: mockResponse
+      });
+      
+      return mockResponse;
+    };
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Starter Prompts Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .example-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    
+    .example-section p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .info-box strong {
+      color: #1976d2;
+    }
+    
+    .prompts-preview {
+      background: #f7f8fc;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .prompts-preview strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 12px;
+    }
+    
+    .prompts-preview ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .prompts-preview li {
+      background: white;
+      border: 1px solid #e5e7eb;
+      color: #667eea;
+      padding: 10px 14px;
+      border-radius: 18px;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ Starter Prompts Examples</h1>
+
+    <div class="info-box">
+      <strong>Try it now!</strong> Click the chat button in the bottom right corner. After the welcome message, you'll see clickable starter prompts. Click any prompt to send it instantly - no typing needed!
+    </div>
+
+    <div class="examples">
+      <!-- Example 1 -->
+      <div class="example-section">
+        <h2>1️⃣ Customer Support</h2>
+        <p>Common support questions</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>What are your hours?</li>
+            <li>Track my order</li>
+            <li>Return policy</li>
+            <li>Contact support</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'What are your hours?',
+  'Track my order',
+  'Return policy',
+  'Contact support'
+]</div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="example-section">
+        <h2>2️⃣ E-Commerce</h2>
+        <p>Shopping and product queries</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>🛍️ Browse products</li>
+            <li>📦 Check order status</li>
+            <li>💳 Payment options</li>
+            <li>🚚 Shipping info</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  '🛍️ Browse products',
+  '📦 Check order status',
+  '💳 Payment options',
+  '🚚 Shipping info'
+]</div>
+      </div>
+
+      <!-- Example 3 -->
+      <div class="example-section">
+        <h2>3️⃣ General Info</h2>
+        <p>About your business</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>About us</li>
+            <li>Our services</li>
+            <li>Pricing</li>
+            <li>Get started</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'About us',
+  'Our services',
+  'Pricing',
+  'Get started'
+]</div>
+      </div>
+
+      <!-- Example 4 -->
+      <div class="example-section">
+        <h2>4️⃣ Technical Support</h2>
+        <p>Tech help and troubleshooting</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>🔧 Troubleshooting help</li>
+            <li>📱 Setup guide</li>
+            <li>🔐 Password reset</li>
+            <li>📞 Talk to an agent</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  '🔧 Troubleshooting help',
+  '📱 Setup guide',
+  '🔐 Password reset',
+  '📞 Talk to an agent'
+]</div>
+      </div>
+
+      <!-- Example 5 -->
+      <div class="example-section">
+        <h2>5️⃣ Sales & Marketing</h2>
+        <p>Lead generation prompts</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>Request a demo</li>
+            <li>See pricing plans</li>
+            <li>Compare features</li>
+            <li>Speak to sales</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'Request a demo',
+  'See pricing plans',
+  'Compare features',
+  'Speak to sales'
+]</div>
+      </div>
+
+      <!-- Example 6 -->
+      <div class="example-section">
+        <h2>6️⃣ FAQ Quick Access</h2>
+        <p>Most asked questions</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>How does it work?</li>
+            <li>Is it free?</li>
+            <li>What's included?</li>
+            <li>Cancel anytime?</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'How does it work?',
+  'Is it free?',
+  'What\'s included?',
+  'Cancel anytime?'
+]</div>
+      </div>
+
+      <!-- Example 7 -->
+      <div class="example-section">
+        <h2>7️⃣ Minimal (2-3 prompts)</h2>
+        <p>Keep it simple with key options</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>I have a question</li>
+            <li>I need help</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'I have a question',
+  'I need help'
+]</div>
+      </div>
+
+      <!-- Example 8 -->
+      <div class="example-section">
+        <h2>8️⃣ Action-Oriented</h2>
+        <p>Encourage specific actions</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>Start free trial</li>
+            <li>Book a consultation</li>
+            <li>Get a quote</li>
+            <li>Download resources</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'Start free trial',
+  'Book a consultation',
+  'Get a quote',
+  'Download resources'
+]</div>
+      </div>
+
+      <!-- Example 9 -->
+      <div class="example-section">
+        <h2>9️⃣ Question Format</h2>
+        <p>Natural question phrasing</p>
+        <div class="prompts-preview">
+          <strong>Prompts:</strong>
+          <ul>
+            <li>What products do you offer?</li>
+            <li>How much does it cost?</li>
+            <li>Can I get a refund?</li>
+            <li>Do you ship internationally?</li>
+          </ul>
+        </div>
+        <div class="code-block">starterPrompts: [
+  'What products do you offer?',
+  'How much does it cost?',
+  'Can I get a refund?',
+  'Do you ship internationally?'
+]</div>
+      </div>
+    </div>
+
+    <!-- Best Practices -->
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>✨ Best Practices for Starter Prompts</h2>
+      
+      <h3 style="margin-top: 20px; color: #667eea;">Do's:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>✅ Keep prompts short and clear (under 50 characters)</li>
+        <li>✅ Use 3-5 prompts (not too many to overwhelm)</li>
+        <li>✅ Address the most common questions first</li>
+        <li>✅ Use action verbs when appropriate</li>
+        <li>✅ Add emojis for visual appeal (optional)</li>
+        <li>✅ Test each prompt to ensure it works</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: #667eea;">Don'ts:</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li>❌ Don't use more than 6 prompts (keeps it clean)</li>
+        <li>❌ Don't make prompts too long</li>
+        <li>❌ Don't use technical jargon</li>
+        <li>❌ Don't duplicate similar prompts</li>
+        <li>❌ Don't forget to test on mobile</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">How They Work</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li><strong>Display:</strong> Prompts appear after the welcome message</li>
+        <li><strong>Click to send:</strong> Users click a prompt to send it instantly</li>
+        <li><strong>Stay visible:</strong> Prompts remain available throughout the conversation</li>
+        <li><strong>Reusable:</strong> Users can click multiple prompts as needed</li>
+        <li><strong>Persist:</strong> Prompts stay visible until conversation is reset</li>
+        <li><strong>Smooth animation:</strong> Fade in with slide effect</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Recommended Prompt Count</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li><strong>2-3 prompts:</strong> Minimal, clean, perfect for mobile</li>
+        <li><strong>4 prompts:</strong> Balanced, recommended for most use cases</li>
+        <li><strong>5-6 prompts:</strong> Maximum before it feels crowded</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- This page uses e-commerce style prompts -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        '🛍️ Browse products',
+        '📦 Check order status',
+        '💳 Payment options',
+        '🚚 Shipping info'
+      ],
+      button: {
+        enabled: true
+      },
+      tip: {
+        enabled: true,
+        text: 'Need help? Click to chat! 💬',
+        delay: 2000
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

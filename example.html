@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat Library - Examples</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .example-section h2 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .example-section p {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .code-block .keyword {
+      color: #569cd6;
+    }
+
+    .code-block .string {
+      color: #ce9178;
+    }
+
+    .code-block .comment {
+      color: #6a9955;
+    }
+
+    .code-block .function {
+      color: #dcdcaa;
+    }
+
+    #example1-chat,
+    #example2-chat {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .console-output {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .console-output .log {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    .console-output .error {
+      color: #d32f2f;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .info-box strong {
+      color: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 N8N Chat Library Examples</h1>
+
+    <div class="examples">
+      <!-- Example 1: Using the UI Component -->
+      <div class="example-section">
+        <h2>Example 1: Chat UI Component</h2>
+        <p>The easiest way to get started - just set your chatUrl and the UI is ready!</p>
+
+        <div class="code-block">
+<span class="comment">// Initialize with UI</span>
+<span class="keyword">const</span> chatUI = <span class="keyword">new</span> <span class="function">N8NChatUI</span>({
+  <span class="string">chatUrl:</span> <span class="string">'YOUR_N8N_WEBHOOK_URL'</span>,
+  <span class="string">title:</span> <span class="string">'Support Chat'</span>,
+  <span class="string">placeholder:</span> <span class="string">'How can we help?'</span>
+});
+
+chatUI.<span class="function">init</span>();
+        </div>
+
+        <div class="info-box">
+          <strong>Note:</strong> Replace 'YOUR_N8N_WEBHOOK_URL' with your actual n8n webhook URL to see it in action!
+        </div>
+
+        <div id="example1-chat"></div>
+      </div>
+
+      <!-- Example 2: Using the Client Only -->
+      <div class="example-section">
+        <h2>Example 2: Client Only (Custom UI)</h2>
+        <p>Use just the client if you want to build your own custom interface.</p>
+
+        <div class="code-block">
+<span class="comment">// Initialize client</span>
+<span class="keyword">const</span> client = <span class="keyword">new</span> <span class="function">N8NChatClient</span>({
+  <span class="string">chatUrl:</span> <span class="string">'YOUR_N8N_WEBHOOK_URL'</span>
+});
+
+<span class="comment">// Send a message</span>
+<span class="keyword">const</span> response = <span class="keyword">await</span> client.<span class="function">sendMessage</span>(<span class="string">'Hello!'</span>);
+console.<span class="function">log</span>(response);
+
+<span class="comment">// Get conversation history</span>
+<span class="keyword">const</span> history = client.<span class="function">getHistory</span>();
+        </div>
+
+        <button id="test-client">Test Client (Check Console)</button>
+        <div id="console-output" class="console-output" style="display: none;"></div>
+      </div>
+    </div>
+
+    <!-- Example 3: Advanced Configuration -->
+    <div class="example-section">
+      <h2>Example 3: Advanced Configuration</h2>
+      <p>Customize the chat with callbacks, headers, and more options.</p>
+
+      <div class="code-block">
+<span class="comment">// Advanced configuration</span>
+<span class="keyword">const</span> chatUI = <span class="keyword">new</span> <span class="function">N8NChatUI</span>({
+  <span class="string">chatUrl:</span> <span class="string">'YOUR_N8N_WEBHOOK_URL'</span>,
+  <span class="string">containerId:</span> <span class="string">'custom-container'</span>,
+  <span class="string">title:</span> <span class="string">'AI Assistant'</span>,
+  <span class="string">placeholder:</span> <span class="string">'Ask me anything...'</span>,
+  <span class="string">showTimestamp:</span> <span class="keyword">true</span>,
+  <span class="string">headers:</span> {
+    <span class="string">'Authorization':</span> <span class="string">'Bearer YOUR_TOKEN'</span>,
+    <span class="string">'X-Custom-Header':</span> <span class="string">'value'</span>
+  },
+  <span class="string">timeout:</span> 30000
+});
+
+<span class="comment">// Access the client for advanced features</span>
+<span class="keyword">const</span> client = chatUI.<span class="function">getClient</span>();
+
+<span class="comment">// Set custom session ID</span>
+client.<span class="function">setSessionId</span>(<span class="string">'user-123'</span>);
+
+<span class="comment">// Send message with metadata</span>
+<span class="keyword">await</span> client.<span class="function">sendMessage</span>(<span class="string">'Hello'</span>, {
+  <span class="string">userId:</span> <span class="string">'user-123'</span>,
+  <span class="string">language:</span> <span class="string">'en'</span>
+});
+      </div>
+    </div>
+
+    <!-- Example 4: Client with Callbacks -->
+    <div class="example-section">
+      <h2>Example 4: Client with Callbacks</h2>
+      <p>Handle messages and errors with custom callbacks.</p>
+
+      <div class="code-block">
+<span class="comment">// Client with callbacks</span>
+<span class="keyword">const</span> client = <span class="keyword">new</span> <span class="function">N8NChatClient</span>({
+  <span class="string">chatUrl:</span> <span class="string">'YOUR_N8N_WEBHOOK_URL'</span>,
+  <span class="string">onMessage:</span> (data) => {
+    console.<span class="function">log</span>(<span class="string">'Received:'</span>, data);
+    <span class="comment">// Update your custom UI here</span>
+  },
+  <span class="string">onError:</span> (error) => {
+    console.<span class="function">error</span>(<span class="string">'Error:'</span>, error);
+    <span class="comment">// Handle error in your UI</span>
+  }
+});
+
+<span class="comment">// Send message</span>
+client.<span class="function">sendMessage</span>(<span class="string">'Hello, how are you?'</span>);
+      </div>
+    </div>
+
+    <!-- Quick Start Guide -->
+    <div class="example-section">
+      <h2>🎯 Quick Start Guide</h2>
+      
+      <h3 style="margin-top: 20px; color: #667eea;">Step 1: Include the Library</h3>
+      <div class="code-block">
+<span class="comment">&lt;!-- Include both files for UI support --&gt;</span>
+&lt;<span class="keyword">script</span> <span class="string">src</span>=<span class="string">"n8n-chat-client.js"</span>&gt;&lt;/<span class="keyword">script</span>&gt;
+&lt;<span class="keyword">script</span> <span class="string">src</span>=<span class="string">"n8n-chat-ui.js"</span>&gt;&lt;/<span class="keyword">script</span>&gt;
+
+<span class="comment">&lt;!-- Or just the client for custom UI --&gt;</span>
+&lt;<span class="keyword">script</span> <span class="string">src</span>=<span class="string">"n8n-chat-client.js"</span>&gt;&lt;/<span class="keyword">script</span>&gt;
+      </div>
+
+      <h3 style="margin-top: 20px; color: #667eea;">Step 2: Add Container</h3>
+      <div class="code-block">
+<span class="comment">&lt;!-- Add a container for the chat --&gt;</span>
+&lt;<span class="keyword">div</span> <span class="string">id</span>=<span class="string">"n8n-chat-container"</span>&gt;&lt;/<span class="keyword">div</span>&gt;
+      </div>
+
+      <h3 style="margin-top: 20px; color: #667eea;">Step 3: Initialize</h3>
+      <div class="code-block">
+&lt;<span class="keyword">script</span>&gt;
+  <span class="comment">// That's it! Just set your chatUrl</span>
+  <span class="keyword">const</span> chat = <span class="keyword">new</span> <span class="function">N8NChatUI</span>({
+    <span class="string">chatUrl:</span> <span class="string">'YOUR_N8N_WEBHOOK_URL'</span>
+  });
+  chat.<span class="function">init</span>();
+&lt;/<span class="keyword">script</span>&gt;
+      </div>
+    </div>
+  </div>
+
+  <!-- Include the libraries -->
+  <script src="n8n-chat-client.js"></script>
+  <script src="n8n-chat-ui.js"></script>
+
+  <script>
+    // Example 1: Demo with mock URL (for demonstration purposes)
+    // Note: This will show errors since we don't have a real n8n endpoint
+    // Replace with your actual n8n webhook URL to make it work
+    
+    // You can uncomment this to see the UI (it will show connection errors without a real URL)
+    /*
+    const chatUI = new N8NChatUI({
+      chatUrl: 'https://your-n8n-instance.com/webhook/chat',
+      containerId: 'example1-chat',
+      title: 'Demo Chat',
+      placeholder: 'Type your message...',
+      showTimestamp: true
+    });
+    chatUI.init();
+    */
+
+    // Example 2: Test client functionality
+    document.getElementById('test-client').addEventListener('click', async () => {
+      const consoleOutput = document.getElementById('console-output');
+      consoleOutput.style.display = 'block';
+      consoleOutput.innerHTML = '';
+
+      function addLog(message, isError = false) {
+        const logDiv = document.createElement('div');
+        logDiv.className = isError ? 'error' : 'log';
+        logDiv.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+        consoleOutput.appendChild(logDiv);
+      }
+
+      try {
+        addLog('Creating chat client...');
+        
+        const client = new N8NChatClient({
+          chatUrl: 'https://demo.n8n.io/webhook/chat', // Demo URL (may not work)
+          onMessage: (data) => {
+            addLog('Message received: ' + JSON.stringify(data));
+          },
+          onError: (error) => {
+            addLog('Error: ' + JSON.stringify(error), true);
+          }
+        });
+
+        addLog('Session ID: ' + client.getSessionId());
+        addLog('Sending message...');
+        
+        await client.sendMessage('Hello from the demo!');
+        
+        addLog('History length: ' + client.getHistory().length);
+        
+      } catch (error) {
+        addLog('Error: ' + error.message, true);
+        addLog('Note: You need to set a valid n8n webhook URL for this to work!');
+      }
+    });
+  </script>
+</body>
+</html>
+

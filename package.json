@@ -1,0 +1,43 @@
+{
+  "name": "n8n-chat-library",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript library for integrating n8n chat workflows into web applications",
+  "main": "n8n-chat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "n8n",
+    "chat",
+    "chatbot",
+    "webhook",
+    "ui",
+    "javascript",
+    "workflow",
+    "automation",
+    "client",
+    "library"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "homepage": "",
+  "files": [
+    "n8n-chat.js",
+    "n8n-chat-client.js",
+    "n8n-chat-ui.js",
+    "minimal-example.html",
+    "simple-example.html",
+    "complete-example.html",
+    "README.md",
+    "QUICK_START.md",
+    "THEME_GUIDE.md",
+    "FEATURES.md"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

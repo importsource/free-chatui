@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Theme Examples</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .example-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .example-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    
+    .example-section p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .theme-preview {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+      flex-wrap: wrap;
+    }
+    
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Theme Customization Examples</h1>
+
+    <div class="info-box">
+      <strong>This page demonstrates theme customization!</strong><br>
+      The chat uses a custom dark theme. Try different theme examples below in your own code!
+    </div>
+
+    <div class="examples">
+      <!-- Example 1: Default Theme -->
+      <div class="example-section">
+        <h2>1️⃣ Default Theme (Purple)</h2>
+        <p>Beautiful purple gradient (default)</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">Primary</div>
+          <div class="color-swatch" style="background: #f7f8fc; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">// No theme config needed - this is default!
+theme: {
+  primaryColor: '#667eea',
+  secondaryColor: '#764ba2'
+}</div>
+      </div>
+
+      <!-- Example 2: Blue Theme -->
+      <div class="example-section">
+        <h2>2️⃣ Blue Theme</h2>
+        <p>Professional blue gradient</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);">Primary</div>
+          <div class="color-swatch" style="background: #f0f7ff; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#4a90e2',
+  secondaryColor: '#357abd',
+  chatBg: '#f0f7ff'
+}</div>
+      </div>
+
+      <!-- Example 3: Green Theme -->
+      <div class="example-section">
+        <h2>3️⃣ Green Theme</h2>
+        <p>Fresh, nature-inspired</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);">Primary</div>
+          <div class="color-swatch" style="background: #f1f8f4; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#4caf50',
+  secondaryColor: '#388e3c',
+  chatBg: '#f1f8f4'
+}</div>
+      </div>
+
+      <!-- Example 4: Red/Pink Theme -->
+      <div class="example-section">
+        <h2>4️⃣ Red/Pink Theme</h2>
+        <p>Vibrant and energetic</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);">Primary</div>
+          <div class="color-swatch" style="background: #fff5f5; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#ff6b6b',
+  secondaryColor: '#ee5a6f',
+  chatBg: '#fff5f5'
+}</div>
+      </div>
+
+      <!-- Example 5: Orange Theme -->
+      <div class="example-section">
+        <h2>5️⃣ Orange Theme</h2>
+        <p>Warm and friendly</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);">Primary</div>
+          <div class="color-swatch" style="background: #fff8f0; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#ff9800',
+  secondaryColor: '#f57c00',
+  chatBg: '#fff8f0'
+}</div>
+      </div>
+
+      <!-- Example 6: Dark Theme -->
+      <div class="example-section">
+        <h2>6️⃣ Dark Theme</h2>
+        <p>Modern dark mode</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">Header</div>
+          <div class="color-swatch" style="background: #1e1e1e; color: white;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#2c3e50',
+  secondaryColor: '#34495e',
+  chatBg: '#1e1e1e',
+  botMessageBg: '#2c2c2c',
+  botMessageColor: '#ffffff',
+  userMessageBg: '#4a5568',
+  userMessageColor: '#ffffff',
+  inputBorder: '#444'
+}</div>
+      </div>
+
+      <!-- Example 7: Teal Theme -->
+      <div class="example-section">
+        <h2>7️⃣ Teal/Cyan Theme</h2>
+        <p>Modern and clean</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);">Primary</div>
+          <div class="color-swatch" style="background: #e0f7fa; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#00bcd4',
+  secondaryColor: '#0097a7',
+  chatBg: '#e0f7fa'
+}</div>
+      </div>
+
+      <!-- Example 8: Monochrome -->
+      <div class="example-section">
+        <h2>8️⃣ Monochrome Theme</h2>
+        <p>Black and white minimalist</p>
+        <div class="theme-preview">
+          <div class="color-swatch" style="background: #000; color: white;">Header</div>
+          <div class="color-swatch" style="background: #f5f5f5; color: #333;">Chat BG</div>
+        </div>
+        <div class="code-block">theme: {
+  primaryColor: '#000000',
+  secondaryColor: '#333333',
+  chatBg: '#f5f5f5',
+  headerBg: '#000000',
+  userMessageBg: '#333333'
+}</div>
+      </div>
+
+      <!-- Example 9: Brand Colors -->
+      <div class="example-section">
+        <h2>9️⃣ Custom Brand Theme</h2>
+        <p>Match your brand colors</p>
+        <div class="code-block">theme: {
+  primaryColor: '#YOUR_BRAND_COLOR',
+  secondaryColor: '#YOUR_SECONDARY_COLOR',
+  chatBg: '#YOUR_BG_COLOR',
+  // Full customization...
+  userMessageBg: '#YOUR_COLOR',
+  botMessageBg: '#ffffff',
+  userMessageColor: '#ffffff',
+  botMessageColor: '#333333',
+  headerBg: 'linear-gradient(135deg, #COLOR1, #COLOR2)',
+  headerColor: '#ffffff',
+  inputBorder: '#e5e7eb',
+  fontFamily: '"Your Font", sans-serif'
+}</div>
+      </div>
+    </div>
+
+    <!-- Full Configuration -->
+    <div class="example-section" style="max-width: 100%; margin-top: 20px;">
+      <h2>🎨 Complete Theme Configuration</h2>
+      <p>All available theme options:</p>
+      
+      <div class="code-block">theme: {
+  // Primary colors (used for gradients)
+  primaryColor: '#667eea',      // Main brand color
+  secondaryColor: '#764ba2',    // Secondary for gradients
+  
+  // Message bubbles
+  userMessageBg: null,          // null = uses primaryColor gradient
+  userMessageColor: '#ffffff',  // User message text color
+  botMessageBg: '#ffffff',      // Bot message background
+  botMessageColor: '#333333',   // Bot message text color
+  
+  // Header
+  headerBg: null,               // null = uses primaryColor gradient
+  headerColor: '#ffffff',       // Header text color
+  
+  // Chat interface
+  chatBg: '#f7f8fc',            // Chat messages area background
+  inputBorder: '#e5e7eb',       // Input field border color
+  
+  // Typography
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+}</div>
+
+      <h3 style="margin-top: 30px; color: #667eea;">How Themes Work</h3>
+      <ul style="color: #666; line-height: 1.8;">
+        <li><strong>primaryColor:</strong> Used for buttons, input focus, and gradients</li>
+        <li><strong>secondaryColor:</strong> Creates gradients with primaryColor</li>
+        <li><strong>Auto-gradients:</strong> If userMessageBg or headerBg are null, gradient is auto-generated</li>
+        <li><strong>Full control:</strong> Override any color individually</li>
+        <li><strong>Font family:</strong> Change the entire interface font</li>
+      </ul>
+
+      <h3 style="margin-top: 30px; color: #667eea;">Quick Theme Presets</h3>
+      <p style="color: #666;">Copy and paste these ready-made themes:</p>
+      
+      <p style="margin-top: 20px;"><strong>Professional Blue:</strong></p>
+      <div class="code-block">theme: { primaryColor: '#4a90e2', secondaryColor: '#357abd', chatBg: '#f0f7ff' }</div>
+      
+      <p style="margin-top: 20px;"><strong>Nature Green:</strong></p>
+      <div class="code-block">theme: { primaryColor: '#4caf50', secondaryColor: '#388e3c', chatBg: '#f1f8f4' }</div>
+      
+      <p style="margin-top: 20px;"><strong>Vibrant Red:</strong></p>
+      <div class="code-block">theme: { primaryColor: '#ff6b6b', secondaryColor: '#ee5a6f', chatBg: '#fff5f5' }</div>
+      
+      <p style="margin-top: 20px;"><strong>Modern Dark:</strong></p>
+      <div class="code-block">theme: {
+  primaryColor: '#2c3e50',
+  secondaryColor: '#34495e',
+  chatBg: '#1e1e1e',
+  botMessageBg: '#2c2c2c',
+  botMessageColor: '#ffffff',
+  userMessageColor: '#ffffff',
+  inputBorder: '#444'
+}</div>
+    </div>
+  </div>
+
+  <!-- This page uses a custom dark theme -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Dark Theme Chat',
+      welcomeMessage: 'Hello! 👋 Try our dark theme!',
+      starterPrompts: [
+        'Tell me about themes',
+        'Show me examples',
+        'How do I customize?'
+      ],
+      avatars: {
+        bot: '🎨',
+        user: '👤',
+        enabled: true
+      },
+      theme: {
+        primaryColor: '#2c3e50',
+        secondaryColor: '#34495e',
+        chatBg: '#1e1e1e',
+        botMessageBg: '#2c2c2c',
+        botMessageColor: '#ffffff',
+        userMessageBg: '#4a5568',
+        userMessageColor: '#ffffff',
+        inputBorder: '#444'
+      },
+      button: {
+        enabled: true,
+        icon: '🎨'
+      },
+      tip: {
+        enabled: true,
+        text: 'Try our dark theme! 🌙',
+        delay: 2000
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+

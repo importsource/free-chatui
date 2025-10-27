@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N8N Chat - Complete Example (All Features)</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .hero {
+      background: white;
+      padding: 60px 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 42px;
+      font-weight: 700;
+    }
+    
+    .subtitle {
+      color: #666;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    
+    .feature-card {
+      background: #f7f8fc;
+      padding: 24px;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .feature-card h3 {
+      color: #667eea;
+      margin: 0 0 12px 0;
+      font-size: 18px;
+    }
+    
+    .feature-card p {
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    
+    .instructions {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      margin-top: 40px;
+    }
+    
+    .instructions h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+    
+    .instructions ol {
+      color: #666;
+      line-height: 2;
+      font-size: 16px;
+    }
+    
+    .instructions li {
+      margin: 10px 0;
+    }
+    
+    .code-showcase {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 24px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 24px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .highlight {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>🚀 N8N Chat - Complete Example</h1>
+      <p class="subtitle">
+        This page showcases <strong>ALL features</strong> of the N8N Chat library in action!<br>
+        Click the chat button in the bottom right to see everything working together.
+      </p>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>💬 Toggle Button</h3>
+          <p>Click the floating button to open/close the chat</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>💡 Helpful Tip</h3>
+          <p>Wait 2 seconds to see a tooltip appear</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>👋 Welcome Message</h3>
+          <p>Friendly greeting when you open the chat</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>⚡ Starter Prompts</h3>
+          <p>Click prompts to send instantly - they stay visible for reuse!</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>👤 Avatars</h3>
+          <p>Custom bot and user avatars with emoji or images</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h2>🎯 Try These Features:</h2>
+      <ol>
+        <li><strong>Wait 2 seconds</strong> - A tooltip will appear near the chat button</li>
+        <li><strong>Click the chat button</strong> - The chat window will slide open</li>
+        <li><strong>See the welcome message</strong> - A friendly greeting appears</li>
+        <li><strong>Click any starter prompt</strong> - It sends instantly without typing</li>
+        <li><strong>Click multiple prompts</strong> - Prompts stay visible for reuse</li>
+        <li><strong>Or type your own message</strong> - Use the input field normally</li>
+        <li><strong>Click the X button</strong> - Close the chat window</li>
+        <li><strong>Click the reset button</strong> - Start a fresh conversation</li>
+      </ol>
+
+      <div class="highlight">
+        👀 Look at the bottom right corner to get started!
+      </div>
+
+      <h2 style="margin-top: 40px;">📝 Complete Configuration</h2>
+      <p style="color: #666;">Here's the exact configuration used on this page:</p>
+      
+      <div class="code-showcase">window.N8N_CHAT_CONFIG = {
+  chatUrl: 'https://your-n8n-webhook-url',
+  title: 'Support Chat',
+  placeholder: 'Type your message...',
+  
+  // Welcome message
+  welcomeMessage: 'Hello! 👋 How can I help you today?',
+  
+  // Starter prompts (quick replies)
+  starterPrompts: [
+    'What are your hours?',
+    'Tell me about your products',
+    'I need help with my order',
+    'How can I contact support?'
+  ],
+  
+  // Avatars
+  avatars: {
+    bot: '🤖',     // Bot avatar (emoji or image URL)
+    user: '👤',    // User avatar (emoji or image URL)
+    enabled: true
+  },
+  
+  // Toggle button
+  button: {
+    enabled: true,
+    icon: '<span style="font-size: 28px">💬</span>',
+    radius: '50%',
+    shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+  },
+  
+  // Helpful tip
+  tip: {
+    enabled: true,
+    text: 'Need help? Chat with us! 💬',
+    delay: 2000,
+    background: '#ffffff',
+    color: '#333333'
+  }
+};</div>
+
+      <h2 style="margin-top: 40px;">✨ All Features Summary</h2>
+      <ul style="color: #666; line-height: 2;">
+        <li>✅ <strong>Single File Import</strong> - Just one script tag</li>
+        <li>✅ <strong>No DIV Required</strong> - Container auto-created</li>
+        <li>✅ <strong>Auto-Initialization</strong> - Works immediately</li>
+        <li>✅ <strong>Toggle Button</strong> - Custom icon, size, colors</li>
+        <li>✅ <strong>Helpful Tips</strong> - Guide users with tooltips</li>
+        <li>✅ <strong>Welcome Message</strong> - Greet users warmly</li>
+        <li>✅ <strong>Starter Prompts</strong> - One-click quick replies</li>
+        <li>✅ <strong>Custom Avatars</strong> - Bot and user avatars (emoji or images)</li>
+        <li>✅ <strong>Beautiful UI</strong> - Modern, responsive design</li>
+        <li>✅ <strong>Session Management</strong> - Automatic tracking</li>
+        <li>✅ <strong>Error Handling</strong> - Graceful error messages</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Complete configuration with ALL features -->
+  <script>
+    window.N8N_CHAT_CONFIG = {
+      chatUrl: 'https://your-n8n-webhook-url',
+      title: 'Support Chat',
+      titleIcon: '💬',
+      placeholder: 'Type your message...',
+      welcomeMessage: 'Hello! 👋 How can I help you today?',
+      starterPrompts: [
+        'What are your hours?',
+        'Tell me about your products',
+        'I need help with my order',
+        'How can I contact support?'
+      ],
+      avatars: {
+        bot: '🤖',
+        user: '👤',
+        enabled: true
+      },
+      theme: {
+        primaryColor: '#667eea',
+        secondaryColor: '#764ba2',
+        chatBg: '#f7f8fc'
+      },
+      button: {
+        enabled: true,
+        icon: '<span style="font-size: 28px">💬</span>',
+        radius: '50%',
+        shadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      },
+      tip: {
+        enabled: true,
+        text: 'Need help? Chat with us! 💬',
+        delay: 2000,
+        background: '#ffffff',
+        color: '#333333'
+      }
+    };
+  </script>
+    <script src="https://cdn.jsdelivr.net/gh/importsource/free-chatui@v1.0.0-alpha/n8n-chat.js"></script>
+</body>
+</html>
+
